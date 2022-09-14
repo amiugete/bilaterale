@@ -95,7 +95,7 @@ while($r1 = pg_fetch_assoc($result1)) {
         # scrivo nella tabella email
         $query_i4="INSERT INTO gestione_oggetti.email
         (tipo_mail, intervento_id, data_creazione)
-        VALUES('Abortito', $1, now():.date);";
+        VALUES('Abortito', $1, now():date);";
         $result_i4 = pg_prepare($conn, "my_query_i4", $query_i4);
         $result_i4 = pg_execute($conn, "my_query_i4", array($r_i['id']));
 
