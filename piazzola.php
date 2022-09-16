@@ -121,6 +121,7 @@ Recupera dettagli piazzola
 
 <?php
 $id_piazzola=$_POST['piazzola'];
+$check_stato_intervento=0;
 ?> 
 <h1> Piazzola <?php echo $id_piazzola?> 
 <a class="btn btn-info" href="<?php echo $url_sit?>/#!/home/edit-piazzola/<?php echo $id_piazzola?>/" target="_new"><i class="fa-solid fa-pen-to-square"></i></a>
@@ -140,7 +141,7 @@ tr.colore,
 te2.descrizione as tipo_raccolta,
 te.descrizione as tipo_elem, 
 concat (ep.descrizione, ' - ', ep.nome_attivita) as cliente, 
-vi.stato_descrizione as stato_intervento
+vi.stato_descrizione as stato_intervento, vi.stato as id_stato_intervento
 ,case 
   when te.tipologia_elemento in ('L', 'P', 'C') and te.tipo_rifiuto in (1,3,4,5,7)
   then 1
@@ -183,6 +184,9 @@ while($r = pg_fetch_assoc($result_e)) {
     }
     if ($r['stato_intervento']!=''){
       echo '<b style="color:red"> Intervento '.$r["stato_intervento"].'</b>';
+      if ($r["id_stato_intervento"]==5){
+        $check_stato_intervento=1;
+      }
     }
     echo "</li>";
 }
@@ -355,9 +359,16 @@ function clickButton() {
 <br>
 <div class="form-group  ">
 <!--input type="submit" name="submit" id=submit class="btn btn-info" value="Trasforma a bilaterale"-->
-<button type="submit" class="btn btn-info">
+<button type="submit" class="btn btn-info"
+<?php if ($check_stato_intervento==1){?>
+title="Non posso trasformare la piazzole perchè c'è un intervento preso in carico. Contattare manutenzione cassonetti" disabled=""
+<?php }?>
+>
 <i class="fa-solid fa-arrows-turn-to-dots"></i>Trasforma a bilaterale
 </button>
+<?php if ($check_stato_intervento==1){?>
+<br><small>Non posso trasformare la piazzola perchè c'è un intervento preso in carico. Contattare manutenzione cassonetti</small>
+<?php }?>
 </div>
 
 </form>
