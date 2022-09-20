@@ -165,7 +165,7 @@ $check_bilaterale=0;
 echo "<ul>";
 while($r = pg_fetch_assoc($result_e)) {
     //print_r($r);
-    if($r['tipologia_elemento']=='B'){
+    if($r['tipologia_elemento']=='B'|| $r['tipologia_elemento']=='R' ){
       $check_bilaterale=1;
     }
     echo "<li>";
@@ -216,22 +216,26 @@ function clickButton() {
 
       var indi=document.getElementById('indi').value;
       console.log(indi);
-      var indi_st=document.getElementById('indi_st').value;
+      //var indi_st=document.getElementById('indi_st').value;
+      var indi_st=$("input[name='indi_st']:checked").val();
       console.log(indi_st);
 
       var carta=document.getElementById('carta').value;
       console.log(carta);
-      var carta_st=document.getElementById('carta_st').value;
+      //var carta_st=document.getElementById('carta_st').value;
+      var carta_st=$("input[name='carta_st']:checked").val();
       console.log(carta_st);
 
       var multi=document.getElementById('multi').value;
       console.log(multi);
-      var multi_st=document.getElementById('multi_st').value;
+      //var multi_st=document.getElementById('multi_st').value;
+      var multi_st=$("input[name='multi_st']:checked").val();
       console.log(multi_st);
 
       var org=document.getElementById('org').value;
       console.log(org);
-      var org_st=document.getElementById('org_st').value;
+      //var org_st=document.getElementById('org_st').value;
+      var org_st=$("input[name='org_st']:checked").val();
       console.log(org_st);
   
 
@@ -261,9 +265,11 @@ function clickButton() {
       //window.location.href = "chiusura.php";
       //$("#dettagli").hide();
       //$("#successo").show();
-      $("#comp_piazz").hide();
+      //$("#comp_piazz").hide();
       $("#bilat").hide();
-      $("#successo").show();
+      $("#comp_piazz").load(location.href + " #comp_piazz");
+      //$("#successo").show();
+      window.location.reload();
       return false;
 
   }
@@ -288,11 +294,11 @@ function clickButton() {
 
   <div class="col-md-7">
   <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="indi_st" id="indi_st" value="1" checked>
+  <input class="form-check-input" type="radio" name="indi_st" id="1" value="1" checked>
   <label class="form-check-label" for="indi_st">Standard</label>
 </div>
 <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="indi_st" id="indi_st" value="0">
+  <input class="form-check-input" type="radio" name="indi_st" id="0" value="0">
   <label class="form-check-label" for="indi_st">Ridotta</label>
 </div>
 </div>

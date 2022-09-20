@@ -44,7 +44,7 @@ $org_st=$_POST['org_st'];
 echo $org."<br>";
 echo $org_st."<br>";
 
-
+#exit;
 # ciclo su elementi da eliminare
 
 $query_1="select id_elemento 
