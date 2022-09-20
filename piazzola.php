@@ -268,7 +268,7 @@ function clickButton() {
       //$("#comp_piazz").hide();
       $("#bilat").hide();
       $("#comp_piazz").load(location.href + " #comp_piazz");
-      //$("#successo").show();
+      $("#successo").show();
       window.location.reload();
       return false;
 
