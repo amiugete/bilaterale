@@ -141,8 +141,10 @@ tr.colore,
 te2.descrizione as tipo_raccolta,
 te.descrizione as tipo_elem, 
 concat (ep.descrizione, ' - ', ep.nome_attivita) as cliente, 
-vi.stato_descrizione as stato_intervento, vi.stato as id_stato_intervento
-,case 
+string_agg(distinct vi.stato_descrizione, ',') as stato_intervento, 
+max(vi.stato) as id_stato_intervento,
+max(vi.odl) as odl,
+case 
   when te.tipologia_elemento in ('L', 'P', 'C') and te.tipo_rifiuto in (1,3,4,5,7)
   then 1
   else 0
@@ -154,6 +156,14 @@ join elem.tipologie_elemento te2 on te2.tipologia_elemento = te.tipologia_elemen
 left join elem.elementi_privati ep on ep.id_elemento = e.id_elemento 
 left join gestione_oggetti.v_intervento vi on e.id_elemento = vi.elemento_id and vi.stato in (1,5)
 where id_piazzola = $1
+group by e.id_elemento, 
+te.tipo_rifiuto,
+tr.nome,
+te.tipologia_elemento,
+tr.colore,
+te2.descrizione ,
+te.descrizione , 
+ep.descrizione, ep.nome_attivita
 order by tr.nome, te.descrizione";
 
 $result_e = pg_prepare($conn, "my_query_e", $query_elementi);
@@ -183,10 +193,12 @@ while($r = pg_fetch_assoc($result_e)) {
       echo ' - '. $r['cliente'];
     }
     if ($r['stato_intervento']!=''){
-      echo '<b style="color:red"> Intervento '.$r["stato_intervento"].'</b>';
+      echo '<b style="color:red"> Intervento '.$r["stato_intervento"].' ';
       if ($r["id_stato_intervento"]==5){
         $check_stato_intervento=1;
+        echo '(Ordine di lavoro = '.$r["odl"].')';
       }
+      echo '</b>';
     }
     echo "</li>";
 }
