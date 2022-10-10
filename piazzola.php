@@ -397,7 +397,7 @@ title="Non posso trasformare la piazzole perchè c'è un intervento preso in car
 
 
 <div class="col-md-6"> 
-<img src="../foto_sit/<?php echo $id_piazzola?>.jpg" class="rounded img-fluid" alt="<?php echo $id_piazzola?>">
+<img src="../foto/sit/<?php echo $id_piazzola?>.jpg" class="rounded img-fluid" alt="<?php echo $id_piazzola?>">
 </div>
 
 </div>
