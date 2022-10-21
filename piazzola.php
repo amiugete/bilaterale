@@ -68,11 +68,63 @@ $name=dirname(__FILE__);
 
 <div class="container">
 
+<script>
+  function piazzolaScelta(val) {
+    document.getElementById('openpiazzola').submit();
+    
+    /*window.location.href = window.location.href;
+    var id_piazzola=document.getElementById('piazzola').value;
+    console.log(id_piazzola);
+    console.log(val);
+    $.ajax({
+      type: "POST",
+      url: "piazzola.php",
+      data: {'piazzola':val},
+      success: function() {   
+          location.reload();  
+      }
+    });*/
 
+
+
+    /*var id_piazzola=document.getElementById('piazzola').value;
+    console.log(id_piazzola);
+    var http = new XMLHttpRequest();
+    var url = 'piazzola.php';
+    var params = 'piazzola='+encodeURIComponent(id_piazzola)+'';
+    http.open('POST', url, true);
+
+    //Send the proper header information along with the request
+    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+    http.onreadystatechange = function() {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+          console.log('Sono qua 0');
+            if (http.responseText == 3) {
+              console.log('Sono qua 1');
+              //alert("Intervento chiuso con successo");
+            } else {
+              console.log('Sono qua 2');
+              //alert(http.responseText);
+            }
+        }
+    }
+    http.send(params);*/
+    /*$("#dettagli").load(location.href + " #dettagli");
+    $("#comp_piazz").load(location.href + " #comp_piazz");
+    $("#dettagli").hide();
+    $("#dettagli").show();
+    $("#comp_piazz").hide();
+    $("#comp_piazz").show();*/
+    //window.location.reload();
+
+    //return false;
+  }
+</script>
 
 
 <hr>
-<form name="openfile" method="post" autocomplete="off" action="piazzola.php" >
+<form name="openpiazzola" method="post" id="openpiazzola" autocomplete="off" action="piazzola.php" >
 <div class="row">
 
 <div class="form-group col-lg-6">
@@ -80,7 +132,7 @@ $name=dirname(__FILE__);
 				
 				
   <select class="selectpicker show-tick form-control" 
-  data-live-search="true" name="piazzola" id="piazzola" required="">
+  data-live-search="true" name="piazzola" id="piazzola" onchange="piazzolaScelta(this.value);" required="">
 
   <option name="piazzola" value="NO">Seleziona una piazzola</option>
   <?php            
@@ -106,9 +158,9 @@ $name=dirname(__FILE__);
 
 <div  name="conferma2" id="conferma2" class="form-group col-lg-3 ">
 <!--input type="submit" name="submit" id=submit class="btn btn-info" value="Recupera dettagli piazzola"-->
-<button type="submit" class="btn btn-info">
+<!--button type="submit" class="btn btn-info">
 Recupera dettagli piazzola
-</button>
+</button-->
 </div>
 
 
@@ -118,6 +170,7 @@ Recupera dettagli piazzola
 
 <br>
 <hr>
+
 
 <?php
 $id_piazzola=$_POST['piazzola'];
