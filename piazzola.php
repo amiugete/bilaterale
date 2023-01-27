@@ -177,11 +177,40 @@ $id_piazzola=$_POST['piazzola'];
 $check_stato_intervento=0;
 ?> 
 <h1> Piazzola <?php echo $id_piazzola?> 
-<a class="btn btn-info" href="<?php echo $url_sit?>/#!/home/edit-piazzola/<?php echo $id_piazzola?>/" target="_new"><i class="fa-solid fa-pen-to-square"></i></a>
+<a class="btn btn-info" href="<?php echo $url_sit?>/#!/home/edit-piazzola/<?php echo $id_piazzola?>/" target="_new">
+<i class="fa-solid fa-pen-to-square"></i>
+</a>
 </h1>
 
 <div class="row">
 <div class="col-md-6"> 
+
+<?php 
+// controllo se la piazzola esiste o se è stata eliminata
+
+$query_eliminata= "select 
+case 
+  when data_eliminazione is null then 0
+  else 1
+end eliminata, data_eliminazione
+from elem.piazzole p where id_piazzola = $1";
+$result_el = pg_prepare($conn, "my_query_el", $query_eliminata);
+$result_el = pg_execute($conn, "my_query_el", array($id_piazzola));
+
+while($r_el = pg_fetch_assoc($result_el)) {
+  $check_eliminata=$r_el['eliminata'];
+  $data = $r_el['data_eliminazione'];
+}
+if ($check_eliminata==1)
+{
+  ?>
+  <div id="comp_piazz">
+  <h3><i class="fa-solid fa-trash"></i> Piazzola eliminata il <?php echo $data; ?></h3>
+  </div>
+<?php
+} else {
+?>
+
 <div id="comp_piazz">
 <h4>Composizione attuale</h4>
 <?php 
@@ -257,7 +286,17 @@ while($r = pg_fetch_assoc($result_e)) {
 }
 echo "</ul>";
 ?>
+<form autocomplete="off" id="prospects_form3" action="eliminazione.php" method="post">
+  <input type="hidden" id="piazzola" name="piazzola" value="<?php echo $id_piazzola?>">
+  <button class="btn btn-danger"> <i class="fa-solid fa-trash" title="Elimina piazzola"></i> </button>
+  </form>
 </div>
+<?php
+}
+?>
+
+
+
 <div id="successo">
   <h3> Piazzola modificata</h3>
   <form autocomplete="off" id="prospects_form3" action="" method="post">
@@ -343,8 +382,7 @@ function clickButton() {
 
 
 
-
-<?php if($check_bilaterale==0){?>
+<?php if ($check_bilaterale==0 and  $check_eliminata==0) {?>
 <!--form name="bilat" method="post" autocomplete="off" action="mod_piazzola.php" -->
 <form autocomplete="off" id="bilat" action="" onsubmit="return clickButton();">
 <input type="hidden" id="id_piazzola" name="id_piazzola" value=<?php echo $id_piazzola?>>
@@ -443,7 +481,7 @@ title="Non posso trasformare la piazzole perchè c'è un intervento preso in car
 </div>
 
 </form>
-<?php } else{ echo "La piazzola è già bilaterale"; }?>
+<?php } else if ($check_eliminata==0){ echo "La piazzola è già bilaterale"; }?>
 
 </div>
 
@@ -451,6 +489,12 @@ title="Non posso trasformare la piazzole perchè c'è un intervento preso in car
 
 <div class="col-md-6"> 
 <img src="../foto/sit/<?php echo $id_piazzola?>.jpg" class="rounded img-fluid" alt="<?php echo $id_piazzola?>">
+<hr>
+<!--form action="upload.php" method="post" enctype="multipart/form-data">
+  Aggiungi/Modifica immagine:
+  <input type="file" name="fileToUpload" id="fileToUpload">
+  <input type="submit" value="Upload Image" name="submit">
+</form-->
 </div>
 
 </div>
