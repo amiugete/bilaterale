@@ -20,3 +20,8 @@ In caso di problemi <?php echo $problemi;?>
 </span>
 </div>
 </footer>
+
+<?php
+
+pg_close($conn);
+?>

@@ -45,7 +45,9 @@ while($r = pg_fetch_assoc($result_n)) {
         <li class="nav-item">
           <a class="nav-link" href="./piazzole.php">Modifica piazzole</a>
         </li>
-       
+        <li class="nav-item">
+          <a class="nav-link" href="./vie_percorsi.php">Vie - Percorsi</a>
+        </li>
         <!--li class="nav-item">
           <a class="nav-link" href="./ordini.php"> Modifica percorsi</a>
         </li>
