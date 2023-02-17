@@ -488,13 +488,18 @@ title="Non posso trasformare la piazzole perchè c'è un intervento preso in car
 
 
 <div class="col-md-6"> 
-<img src="../foto/sit/<?php echo $id_piazzola?>.jpg" class="rounded img-fluid" alt="<?php echo $id_piazzola?>">
+<img src="../foto/sit/<?php echo $id_piazzola?>.jpg" class="rounded img-fluid" alt="Immagine piazzola <?php echo $id_piazzola?> non presente">
 <hr>
-<!--form action="upload.php" method="post" enctype="multipart/form-data">
-  Aggiungi/Modifica immagine:
-  <input type="file" name="fileToUpload" id="fileToUpload">
-  <input type="submit" value="Upload Image" name="submit">
-</form-->
+<form  action="upload_foto.php" method="post" enctype="multipart/form-data">
+<input type="hidden" id="piazzola" name="piazzola" value="<?php echo $id_piazzola?>">
+<div class="mb-3">
+  <label for="formFile" class="form-label">Aggiungi/Modifica immagine:</label>
+  <input type="file" class="form-control form-control-sm" name="fileToUpload" id="fileToUpload" required="">
+  </div>
+  <div class="mb-3">
+  <input type="submit" value="Upload Image" name="submit" class="btn btn-primary mb-3">
+  </div>
+</form>
 </div>
 
 </div>
