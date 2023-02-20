@@ -195,7 +195,7 @@ $id_percorso_originale=$_POST['perc_partenza'];
 
 $id_servizio=$_POST['servizio'];
 
-
+$cod_new=$_POST['perc_new'];
 
 $check_stato_intervento=0;
 
@@ -266,6 +266,8 @@ while($r3 = pg_fetch_assoc($result3)) {
 <h4> Servizio nuovo: <?php echo $desc_servizio?> 
 </h4>
 
+<h4> Nuovo percorso: <?php echo $cod_new?> 
+</h4>
 
 <form name="openservizio2" method="post" id="openservizio2" autocomplete="off" action="duplica_percorso.php" >
 <div class="row">
