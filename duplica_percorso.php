@@ -267,6 +267,56 @@ while($r3 = pg_fetch_assoc($result3)) {
 </h4>
 
 
+<form name="openservizio2" method="post" id="openservizio2" autocomplete="off" action="duplica_percorso.php" >
+<div class="row">
+<input type="hidden" id="perc_partenza" name="perc_partenza" value="<?php echo $id_percorso_originale?>">
+<input type="hidden" id="servizio" name="servizio" value="<?php echo $id_servizio?>">
+
+<div class="form-group col-lg-6">
+  <!--label for="via">servizio:</label> <font color="red">*</font-->
+				
+				
+  <select class="selectpicker show-tick form-control" 
+  data-live-search="true" name="perc_new" id="perc_new" required="">
+
+  <option name="perc_new" value="NO">Seleziona il percorso da cui prendere le piazzole</option>
+  <?php            
+  $query5="select id_percorso, cod_percorso, descrizione, versione, id_servizio
+  from elem.percorsi p 
+  where id_categoria_uso in (3,6)
+  and id_servizio =$1";
+  $result5 = pg_prepare($conn, "query5", $query5);
+  $result5 = pg_execute($conn, "query5", array($id_servizio));
+  $status1= pg_result_status($result5);
+  //echo $query1;    
+  while($r5 = pg_fetch_assoc($result5)) { 
+      $valore=  $r5['cod_percorso']."_new";            
+  ?>
+              
+          <option name="perc_new" value="<?php echo $r2['id_percorso'];?>" ><?php echo $r2['cod_percorso'] .' - ' .$r2['descrizione']. ' (ver. '.$r2['versione'].')';?></option>
+  <?php } ?>
+
+  </select>  
+  <!--small>L'elenco delle piazzole..  </small-->        
+</div>
+
+
+
+
+
+
+<div  name="conferma2bis" id="conferma2bis" class="form-group col-lg-3 ">
+<input type="submit" name="submit" id=submit class="btn btn-info" value="Crea nuovo codice percorso template">
+<!--button type="submit" class="btn btn-info">
+Recupera dettagli servizio
+</button-->
+</div>
+
+
+
+</div> <!-- fine row-->
+</form>
+
 
 
 
