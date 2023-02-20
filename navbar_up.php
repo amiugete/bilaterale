@@ -46,6 +46,9 @@ while($r = pg_fetch_assoc($result_n)) {
           <a class="nav-link" href="./piazzole.php">Modifica piazzole</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="./duplica_percorso.php">Percorso altra frazione</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="./vie_percorsi.php">Vie - Percorsi</a>
         </li>
         <!--li class="nav-item">

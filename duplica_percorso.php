@@ -175,7 +175,7 @@ $name=dirname(__FILE__);
 
 
 <div  name="conferma2" id="conferma2" class="form-group col-lg-3 ">
-<input type="submit" name="submit" id=submit class="btn btn-info" value="Recupera dettagli percorso">
+<input type="submit" name="submit" id=submit class="btn btn-info" value="Recupera elementi nuovo percorso">
 <!--button type="submit" class="btn btn-info">
 Recupera dettagli servizio
 </button-->
