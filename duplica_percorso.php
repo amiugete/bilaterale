@@ -251,7 +251,7 @@ $status4= pg_result_status($result4);
 <br> Turno: 
 <?php
 while($r4 = pg_fetch_assoc($result4)) {
-  echo "<li>".$r3['cod_turno']."</li>";
+  echo $r4['cod_turno'];
 }
 ?>
 <br> Frequenze:
