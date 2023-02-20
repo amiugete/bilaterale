@@ -287,13 +287,13 @@ while($r3 = pg_fetch_assoc($result3)) {
   and id_servizio =$1";
   $result5 = pg_prepare($conn, "query5", $query5);
   $result5 = pg_execute($conn, "query5", array($id_servizio));
-  $status1= pg_result_status($result5);
+  $status5= pg_result_status($result5);
   //echo $query1;    
   while($r5 = pg_fetch_assoc($result5)) { 
       $valore=  $r5['cod_percorso']."_new";            
   ?>
               
-          <option name="perc_new" value="<?php echo $r2['id_percorso'];?>" ><?php echo $r2['cod_percorso'] .' - ' .$r2['descrizione']. ' (ver. '.$r2['versione'].')';?></option>
+          <option name="perc_new" value="<?php echo $r5['cod_percorso']."_new";?>" ><?php echo $r5['cod_percorso'] .' - ' .$r5['descrizione']. ' (ver. '.$r5['versione'].')';?></option>
   <?php } ?>
 
   </select>  
