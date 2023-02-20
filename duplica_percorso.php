@@ -235,10 +235,25 @@ $status3= pg_result_status($result3);
 
 
 
+$query4="select t.id_turno, t.cod_turno  
+from elem.percorsi p  
+join elem.turni t on t.id_turno  = p.id_turno 
+where p.id_percorso=$1";
+
+$result4 = pg_prepare($conn, "query4", $query4);
+$result4 = pg_execute($conn, "query4", array($id_percorso_originale));
+$status4= pg_result_status($result4);
+
 
 
 ?> 
-<h2> Percorso originale: <?php echo $desc_percorso_originale?> 
+<h4> Percorso originale: <?php echo $desc_percorso_originale?> 
+<br> Turno: 
+<?php
+while($r4 = pg_fetch_assoc($result4)) {
+  echo "<li>".$r3['cod_turno']."</li>";
+}
+?>
 <br> Frequenze:
 <ul>
 <?php
@@ -247,9 +262,12 @@ while($r3 = pg_fetch_assoc($result3)) {
 }
 ?>
 </ul>
-</h2>
-<h2> Servizio nuovo: <?php echo $desc_servizio?> 
-</h2>
+</h4>
+<h4> Servizio nuovo: <?php echo $desc_servizio?> 
+</h4>
+
+
+
 
 
 <hr>
