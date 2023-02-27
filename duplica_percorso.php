@@ -349,7 +349,7 @@ Recupera dettagli servizio
 				<table  id="nuovo_percorso" class="table-hover" data-toggle="table" data-url="./tables/nuovo_percorso.php?p=<?php echo $id_percorso_originale;?>&s=<?php echo $id_servizio;?>" 
 				data-show-search-clear-button="true"   data-show-export="true" data-export-type=['json', 'xml', 'csv', 'txt', 'sql', 'excel', 'doc', 'pdf'] 
 				data-search="true" data-click-to-select="true" data-show-print="true"  
-				data-pagination="true" data-page-size=75 data-page-list=[10,25,50,75,100,200,500]
+				data-pagination="false" data-page-size=75 data-page-list=[10,25,50,75,100,200,500]
 				data-sidePagination="true" data-show-refresh="true" data-show-toggle="false" data-show-columns="true" 
 				data-filter-control="true" data-show-footer="false" data-toolbar="#toolbar">
         
