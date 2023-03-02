@@ -23,7 +23,11 @@
 }
 
 .container {
-    padding-top: 117px;
+    /*padding-top: 117px;*/
+}
+
+.pc{
+    margin: auto;
 }
 
 
@@ -68,7 +72,7 @@
     color: rgba(0255, 255, 255, 0.7);
 }
 
-.navbar-fixed-top {
+.navbar-sticky-top {
     top: 77px;
 }
 
@@ -120,7 +124,10 @@
     }
   }
 
-
+/* Smartphones ----------- */
+@media only screen and (max-width: 760px) {
+    #sit_btn1 { display: none; }
+  }
 
 
 

@@ -5,6 +5,16 @@ echo $id_piazzola."<br>";
 
 $check=0;
 
+// Get reference to uploaded image
+$image_file = $_FILES["fileToUpload"];
+
+// Exit if no file uploaded
+if (!isset($image_file)) {
+    die('No file uploaded.');
+}
+
+
+
 if(is_uploaded_file($_FILES['fileToUpload']['tmp_name'])) {
 
     //controllo che il file non superi i 100 KB (1 kilobyte = 1024 byte)
@@ -34,8 +44,10 @@ if(is_uploaded_file($_FILES['fileToUpload']['tmp_name'])) {
         if(!move_uploaded_file($_FILES['fileToUpload']['tmp_name'], '/foto_SIT/sit/'.$id_piazzola.'.jpg')){
             $messaggio.="Errore imprevisto nel caricamento del file. Controllare i permessi della cartella di destinazione";
             $check=1;
+            echo $messaggio."<br>";
         } else {
             $messaggio.="File caricato con successo";
+            header('Location: piazzola.php?piazzola='.$id_piazzola.'');
         }
         
         echo $messaggio;
@@ -45,7 +57,9 @@ if(is_uploaded_file($_FILES['fileToUpload']['tmp_name'])) {
         echo $messaggio;
     }
 } else {
+    echo "Sono qua e non va bene <br>";
     $check=1;
 }
+
 
 ?>

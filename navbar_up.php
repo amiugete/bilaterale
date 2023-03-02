@@ -29,26 +29,30 @@ while($r = pg_fetch_assoc($result_n)) {
   </a> 
 </h3>
 </div>
-<nav class="navbar navbar-inverse navbar-fixed-top navbar-expand-lg navbar-light">
+<nav class="navbar navbar-sticky-top navbar-expand-lg navbar-light" id="main_navbar">
   <div class="container-fluid">
     <!--a class="navbar-brand" href="#">
     <img class="pull-left" src="img\amiu_small_white.png" alt="SIT" width="85px">
     </a-->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <ul class="navbar-nav ms-auto flex-nowrap">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <!--li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li-->
         <?php if ($id_role_SIT > 0) { ?>
         <li class="nav-item">
-          <a class="nav-link" href="./piazzole.php">Modifica piazzole</a>
+          <a class="nav-link" href="./piazzola.php">Modifica piazzole</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="./nuova_piazzola.php">Nuova piazzola</a>
+        </li>
+        <li id="link_pc1" class="nav-item">
           <a class="nav-link" href="./duplica_percorso.php">Percorso altra frazione</a>
         </li>
-        <li class="nav-item">
+        <li id="link_pc2" class="nav-item">
           <a class="nav-link" href="./vie_percorsi.php">Vie - Percorsi</a>
         </li>
         <!--li class="nav-item">
@@ -61,10 +65,12 @@ while($r = pg_fetch_assoc($result_n)) {
         <?php } ?>
         
       </ul>
-      <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
-        <ul class="navbar-nav ms-auto flex-nowrap">
+      
+      <!--div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
+        <ul class="navbar-nav ms-auto flex-nowrap"-->
+        <span class="navbar-light">
           <i class="fas fa-user"></i>Connesso come <?php echo $_SESSION['username'];?> (<?php echo $role_SIT;?>)
-      </ul>
+        </span>
 
     </div>
   </div>

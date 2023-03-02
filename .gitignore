@@ -4,3 +4,4 @@ ldap.php
 jwt.php
 
 
+uploads/*

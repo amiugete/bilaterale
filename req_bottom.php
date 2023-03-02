@@ -52,6 +52,8 @@
 <script src="./vendor/bootstrap-table/dist/extensions/export/bootstrap-table-export.js" ></script>
 
 
+<script src="./vendor/leaflet/leaflet.js"></script>
+
 
 
 <script src="./vendor/bootstrap-table/dist/extensions/print/bootstrap-table-print.min.js" ></script>
@@ -71,6 +73,9 @@
 <!--script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/i18n/defaults-*.min.js"></script-->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
 
 
 

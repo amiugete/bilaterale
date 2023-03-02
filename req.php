@@ -54,6 +54,46 @@ session_start();
 <!--link href="./bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet"-->
 
 
+
+<!-- MAPPA LEAFLET -->
+<link rel="stylesheet" href="./vendor/leaflet/leaflet.css">
+
+
+
+<script>
+
+var onResize = function() {
+    var new_height= 10+$(".banner").height()+$(".navbar-sticky-top").height()
+    console.log(new_height);
+  // apply dynamic padding at the top of the body according to the fixed navbar height
+  $("body").css("margin-top", new_height);
+
+
+    var new_width=$(".banner").width()
+    console.log(new_width);
+    if (new_width < 760) {
+        $("#sit_btn1").css("display", 'none'); 
+        $("#link_pc1").css("display", 'none');
+        $("#link_pc2").css("display", 'none');
+
+    } else {
+        $("#sit_btn1").css("display", 'inline-block'); 
+        $("#link_pc1").css("display", 'inline-block');
+        $("#link_pc2").css("display", 'inline-block');
+
+    }
+    
+};
+
+// attach the function to the window resize event
+$(window).resize(onResize);
+
+// call it also when the page is ready after load or reload
+$(function() {
+  onResize();
+});
+</script>
+
 <!--script src="./jquery.js"></script-->
 <!-- jQuery -->
 <script src="./vendor/jquery/jquery-3.6.0.min.js"></script>
@@ -110,6 +150,8 @@ session_start();
     background: #f1f7ff;
 }
 </style>
+
+
 
 
 <?php

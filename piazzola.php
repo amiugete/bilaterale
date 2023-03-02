@@ -174,13 +174,147 @@ Recupera dettagli piazzola
 
 <?php
 $id_piazzola=$_POST['piazzola'];
+if (!$id_piazzola){
+  $id_piazzola=$_GET['piazzola'];
+}
 $check_stato_intervento=0;
 ?> 
 <h1> Piazzola <?php echo $id_piazzola?> 
-<a class="btn btn-info" href="<?php echo $url_sit?>/#!/home/edit-piazzola/<?php echo $id_piazzola?>/" target="_new">
-<i class="fa-solid fa-pen-to-square"></i>
-</a>
 </h1>
+<div id="dettagli_piazzola" class="row">
+<?php
+$query_piazzola="SELECT v.nome as via, p.numero_civico, p.foto, p.riferimento, p.note,
+p.suolo_privato,
+st_y(st_transform(p2.geoloc,4326)) as lat, 
+st_x(st_transform(p2.geoloc,4326)) as lon
+from elem.piazzole p 
+join elem.aste a on a.id_asta = p.id_asta 
+join topo.vie v on v.id_via = a.id_via 
+join geo.piazzola  p2 on p2.id = p.id_piazzola 
+where p.id_piazzola = $1";
+
+$result_p = pg_prepare($conn, "my_query_p", $query_piazzola);
+$result_p = pg_execute($conn, "my_query_p", array($id_piazzola));
+$statusp= pg_result_status($result_p);
+
+$check_foto=0;
+?>
+
+<script type="text/javascript">
+        
+function clickButton2() {
+      console.log("Bottone update piazzola cliccato");
+
+
+     
+      var id_piazzola=document.getElementById('id_piazzola').value;
+      console.log(id_piazzola);
+
+      var civ=document.getElementById('civ').value;
+      console.log(civ);
+      
+      var rif=document.getElementById('rif').value;
+      console.log(rif);
+      
+      var note=document.getElementById('note').value;
+      console.log(note);
+
+      if ($('input[name="privato"').is(':checked')){
+        var privato=1;
+      } else {
+        var privato=0;
+      }
+      console.log(privato);
+  
+
+
+      var http = new XMLHttpRequest();
+      var url = 'update_piazzola.php';
+      var params = 'id_piazzola='+encodeURIComponent(id_piazzola)+'&civ='+encodeURIComponent(civ)+'&rif='+encodeURIComponent(rif)+'&note='+encodeURIComponent(note)+'&privato='+encodeURIComponent(privato)+'';
+      http.open('POST', url, true);
+
+      //Send the proper header information along with the request
+      http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+      http.onreadystatechange = function() {//Call a function when the state changes.
+          if(http.readyState == 4 && http.status == 200) {
+              if (http.responseText == 3) {
+                //alert("Intervento chiuso con successo");
+              } else {
+                //alert(http.responseText);
+              }
+          }
+      }
+      http.send(params);
+      
+    
+
+      $("#dettagli_piazzola").load(location.href + " #dettagli_piazzola");
+    
+      window.location.reload();
+      return false;
+
+  }
+
+
+
+
+</script>
+<form autocomplete="off" id="edit_piazzola" action="" onsubmit="return clickButton2();">
+<input type="hidden" id="id_piazzola" name="id_piazzola" value=<?php echo $id_piazzola?>>
+<div class="row g-3 align-items-center">
+<?php
+while($r_p = pg_fetch_assoc($result_p)) {
+  $check_foto=$r_p['foto'];
+  ?>
+  <div class="form-group col-md-4">
+      <label for="via"> Via </label>
+      <input disabled="" type="text" name="via" id="via" class="form-control" value="<?php echo $r_p['via'];?>">
+    </div>
+    <div class="form-group col-md-1">
+      <label for="via"> Civico </label>
+      <input type="text" name="civ" id="civ" class="form-control" value="<?php echo $r_p['testo'];?>">
+    </div>
+    <div class="form-group  col-md-6">
+      <label for="rif"> Riferimento </label> <font color="red">*</font>
+      <input type="text" name="rif" id="rif" class="form-control" value="<?php echo $r_p['riferimento'];?>" required="">
+    </div>
+
+    <div class="form-group  col-md-6">
+      <label for="note"> Note </label>
+      <input type="text" name="note" id="note" value="<?php echo $r_p['note'];?>" class="form-control" >
+    </div>
+
+    <div class="form-group col-md-2">
+      <input class="form-check-input" type="checkbox" value="privato" name="privato" id="privato"
+      <?php
+      if ($r_p['suolo_privato']==1){
+        echo ' checked=';
+      }
+      ?>
+      >
+      <label class="form-check-label" for="privato">
+        Suolo privato
+      </label>
+    </div>   
+    <div class="form-group  col-md-2">
+      <button type="submit" class="btn btn-info">
+      <i class="fa-solid fa-pen-to-square"></i>Aggiorna piazzola
+      </button>
+    </div>
+    <div class="form-group  col-md-2">
+      <a id="sit_btn1" class="btn btn-info pc" href="<?php echo $url_sit?>/#!/home/edit-piazzola/<?php echo $id_piazzola?>/" target="_new">
+    <i class="fa-solid fa-arrow-up-right-from-square"></i> Visualizza su SIT
+    </a>
+    </div>
+
+<?php
+}
+?>
+</form>
+<hr>
+</div>
+
 
 <div class="row">
 <div class="col-md-6"> 
@@ -377,6 +511,10 @@ function clickButton() {
       return false;
 
   }
+
+
+
+
 </script>
 
 
@@ -488,12 +626,25 @@ title="Non posso trasformare la piazzole perchè c'è un intervento preso in car
 
 
 <div class="col-md-6"> 
+<?php if ($check_foto == 1) {
+?>
 <img src="../foto/sit/<?php echo $id_piazzola?>.jpg" class="rounded img-fluid" alt="Immagine piazzola <?php echo $id_piazzola?> non presente">
 <hr>
+<?php }
+?>
 <form  action="upload_foto.php" method="post" enctype="multipart/form-data">
+<!--form  action="" onsubmit="return clickButton2();" method="post" enctype="multipart/form-data"-->
+<!--form id="form_foto" method="post" enctype="multipart/form-data"-->
 <input type="hidden" id="piazzola" name="piazzola" value="<?php echo $id_piazzola?>">
 <div class="mb-3">
-  <label for="formFile" class="form-label">Aggiungi/Modifica immagine:</label>
+  <label for="formFile" class="form-label">
+  <?php if ($check_foto == 1) {
+    echo 'Modifica immagine';
+  } else {
+    echo 'Aggiungi immagine:';
+  }
+  ?>
+  </label>
   <input type="file" class="form-control form-control-sm" name="fileToUpload" id="fileToUpload" required="">
   </div>
   <div class="mb-3">
@@ -509,7 +660,7 @@ title="Non posso trasformare la piazzole perchè c'è un intervento preso in car
 
 
 
-<div id="percorsi" class="row">
+<div id="percorsi" class="row" style="display: none">
 
 <h4>Aggiunta a percorsi esistenti</h4>
 
