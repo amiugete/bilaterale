@@ -1,9 +1,6 @@
 <?php
 session_start();
-
 ?>
-
-
 <!--link rel="stylesheet" href="https://kit-free.fontawesome.com/releases/latest/css/free.min.css"-->
 <link rel="stylesheet" href="./vendor/fontawesome-free-6.1.1-web/css/all.min.css">
 
@@ -75,11 +72,16 @@ var onResize = function() {
         $("#sit_btn1").css("display", 'none'); 
         $("#link_pc1").css("display", 'none');
         $("#link_pc2").css("display", 'none');
-
+        $("#intestazione").css("display", 'none');
+        $(".banner").css("height", 0);
+        $(".pull-left").css("height", 0);
+        $(".navbar-sticky-top").css("top", 0);
     } else {
         $("#sit_btn1").css("display", 'inline-block'); 
         $("#link_pc1").css("display", 'inline-block');
         $("#link_pc2").css("display", 'inline-block');
+        $("#intestazione").css("display", 'inline-block');
+        
 
     }
     

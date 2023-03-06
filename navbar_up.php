@@ -22,12 +22,13 @@ while($r = pg_fetch_assoc($result_n)) {
 
 ?>
 
-<div class="banner"> <div id="banner-image"></div> 
+<div id="intestazione" class="banner"> <div id="banner-image">
 <h3>  <a class="navbar-brand link-light" href="#">
     <img class="pull-left" src="img\amiu_small_white.png" alt="SIT" width="85px">
     <span>SIT - Passaggio a bilaterale</span> 
   </a> 
 </h3>
+</div> 
 </div>
 <nav class="navbar navbar-sticky-top navbar-expand-lg navbar-light" id="main_navbar">
   <div class="container-fluid">

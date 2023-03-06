@@ -14,23 +14,38 @@ if(!isset($_COOKIE['origine'])) {
 	//echo "Cookie named origine is not set!";
 	$_COOKIE['origine']=$_SESSION['origine'];
 	$origine=$_COOKIE["origine"];
+	if ($origine==""){
+		$origine="piazzola.php";
+	}
 } else {
 	//echo "Cookie un is set!<br>";
 	//echo "Value is: " . $_COOKIE['origine'];
 }
-//echo $origine;
+//echo $origine."<br>";
 //exit;
 
 
-require_once("conn.php");
+if ($_SESSION['test']==1) {
+    require_once ('./conn_test.php');
+} else {
+    require_once ('./conn.php');
+}
 require_once("req.php");
+
 
 $successMessage = "";
 $errorMessage = "";
 
 // connect to ldap server
-$ldapConnection = ldap_connect($ldapHost, $ldapPort) 
+/*$ldapConnection = ldap_connect($ldapHost, $ldapPort) 
+	or die("Could not connect to Ldap server.");*/
+$ldapConnection = ldap_connect($ldapHost) 
 	or die("Could not connect to Ldap server.");
+
+
+//echo  $ldapHost. " - LDAP connection " . $ldapConnection."<br>";
+
+//echo(ldap_error($ldapConnection)."<br>");
 
 if (isset($_POST["ldapLogin"])){
 
@@ -52,20 +67,23 @@ if (isset($_POST["ldapLogin"])){
 
 		if ($errorMessage == ""){
 			// binding to ldap server
-			ldap_set_option($ldapConnection, LDAP_OPT_PROTOCOL_VERSION, 3) or die('Unable to set LDAP protocol version');
-			ldap_set_option($ldapConnection, LDAP_OPT_REFERRALS, 0);
-			$ldapbind = @ldap_bind($ldapConnection, $ldapUser . $ldapDomain, $ldapPassword);
-
+			//ldap_set_option($ldapConnection, LDAP_OPT_PROTOCOL_VERSION, 3) or die('Unable to set LDAP protocol version');
+			//ldap_set_option($ldapConnection, LDAP_OPT_REFERRALS, 0);
+			//$ldapbind = @ldap_bind($ldapConnection, $ldapUser . $ldapDomain, $ldapPassword);
+			$ldapbind = ldap_bind($ldapConnection, 'DSI\\'.$ldapUser, $ldapPassword);
 			// verify binding
 			if ($ldapbind){
 				ldap_close($ldapConnection);	// close ldap connection
 				$successMessage = "Login done correctly with user ".$ldapUser."!!";
 				$_SESSION['username']=$ldapUser;
 				setcookie('un', $ldapUser, time() + (86400 * 7), "/"); // 86400 = 1 day
-                header("Location: ./$origine");
-			} 
-			else 
-				$errorMessage = "Invalid credentials!";
+				//header("Location: ./piazzola.php");
+				//header("Location:./piazzola.php");
+				echo '<script>window.location.replace("./piazzola.php")</script>';
+				exit;
+			} else{  
+				$errorMessage = "Invalid credentials for user ".$ldapUser." / ".$ldapPassword." inserted!";
+			}
 		}
 	}
 }
@@ -76,7 +94,8 @@ if (isset($_POST["ldapLogin"])){
 		<title>Login</title>
 	</head>
 	<body data-rsssl=1 data-rsssl=1>
-    <div class="banner"> <div id="banner-image"></div> </div>
+	
+    <!--div class="banner"> <div id="banner-image"></div> </div-->
 
       <div class="container">
 		<?php		
@@ -92,13 +111,35 @@ if (isset($_POST["ldapLogin"])){
 		
         <div class="form-group">
 			<label for="exampleInputPassword1">Password</label>
-			<input type="password" class="form-control" name="password" value="" maxlength="50">
+			<input type="password" class="form-control" name="password" id="password" value="" maxlength="50">  <i class="bi bi-eye-slash" 
+                    id="togglePassword"></i>
 		</div>
 		<br>
         <div class="form-group">
 			<input type="submit"  class="btn btn-primary" name="ldapLogin" value="Login">
 		</div>
 		</form>
+
+		<script>
+        const togglePassword = document
+            .querySelector('#togglePassword');
+  
+        const password = document.querySelector('#password');
+  
+        togglePassword.addEventListener('click', () => {
+  
+            // Toggle the type attribute using
+            // getAttribure() method
+            const type = password
+                .getAttribute('type') === 'password' ?
+                'text' : 'password';
+                  
+            password.setAttribute('type', type);
+  
+            // Toggle the eye and bi-eye icon
+            this.classList.toggle('bi-eye');
+        });
+    </script>
 
 
 </div>

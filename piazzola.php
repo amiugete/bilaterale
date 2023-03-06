@@ -178,6 +178,8 @@ if (!$id_piazzola){
   $id_piazzola=$_GET['piazzola'];
 }
 $check_stato_intervento=0;
+
+if ($id_piazzola){
 ?> 
 <h1> Piazzola <?php echo $id_piazzola?> 
 </h1>
@@ -313,8 +315,22 @@ while($r_p = pg_fetch_assoc($result_p)) {
 ?>
 </form>
 <hr>
-</div>
 
+<form autocomplete="off" id="messaggio" action="invio_mail_assterritorio.php" method="post">
+<input type="hidden" id="id_piazzola" name="id_piazzola" value=<?php echo $id_piazzola?>>
+<div class="row g-3 align-items-center">
+<div class="form-group  col-md-10">
+  <label for="testo_mail" class="form-label">Messaggio mail per assterritorio</label>
+  <textarea class="form-control" id="testo_mail" name="testo_mail" rows="3"></textarea>
+</div>
+<div class="form-group  col-md-2">
+      <button type="submit" class="btn btn-info">
+      <i class="fa-solid fa-at"></i>Invia mail
+      </button>
+</div>
+</div>
+<hr>
+</div>
 
 <div class="row">
 <div class="col-md-6"> 
@@ -488,11 +504,24 @@ function clickButton() {
 
       http.onreadystatechange = function() {//Call a function when the state changes.
           if(http.readyState == 4 && http.status == 200) {
+            //alert(http.status);
               if (http.responseText == 3) {
                 //alert("Intervento chiuso con successo");
+                window.location.reload();
+                return false;
               } else {
                 //alert(http.responseText);
-              }
+                $("#bilat").hide();
+                $("#comp_piazz").load(location.href + " #comp_piazz");
+                $("#successo").show();
+                window.location.reload();
+                return false;
+                }
+              //window.location.href = "chiusura.php";
+              //$("#dettagli").hide();
+              //$("#successo").show();
+              //$("#comp_piazz").hide();
+              
           }
       }
       http.send(params);
@@ -500,15 +529,7 @@ function clickButton() {
     
 
 
-      //window.location.href = "chiusura.php";
-      //$("#dettagli").hide();
-      //$("#successo").show();
-      //$("#comp_piazz").hide();
-      $("#bilat").hide();
-      $("#comp_piazz").load(location.href + " #comp_piazz");
-      $("#successo").show();
-      window.location.reload();
-      return false;
+      
 
   }
 
@@ -673,6 +694,7 @@ TODO
 </div>
 
 <?php
+} #piazzola
 require_once('req_bottom.php');
 require('./footer.php');
 ?>

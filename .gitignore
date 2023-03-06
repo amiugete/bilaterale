@@ -2,6 +2,6 @@ conn.php
 conn_test.php
 ldap.php
 jwt.php
-
+credenziali_mail.php
 
 uploads/*
