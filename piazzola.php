@@ -496,7 +496,7 @@ function clickButton() {
 
       var http = new XMLHttpRequest();
       var url = 'mod_piazzola.php';
-      var params = 'id_piazzola='+encodeURIComponent(id_piazzola)+'&indi='+encodeURIComponent(indi)+'&indi_st='+encodeURIComponent(indi_st)+'&carta='+encodeURIComponent(carta)+'&carta_st='+encodeURIComponent(carta_st)+'&multi='+encodeURIComponent(multi)+'&multi_st='+encodeURIComponent(multi_st)+'&org='+encodeURIComponent(org)+'&org_st='+encodeURIComponent(org_st)+'';
+      var params = 'piazzola='+encodeURIComponent(id_piazzola)+'&indi='+encodeURIComponent(indi)+'&indi_st='+encodeURIComponent(indi_st)+'&carta='+encodeURIComponent(carta)+'&carta_st='+encodeURIComponent(carta_st)+'&multi='+encodeURIComponent(multi)+'&multi_st='+encodeURIComponent(multi_st)+'&org='+encodeURIComponent(org)+'&org_st='+encodeURIComponent(org_st)+'';
       http.open('POST', url, true);
 
       //Send the proper header information along with the request

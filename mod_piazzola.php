@@ -11,7 +11,7 @@ if ($_SESSION['test']==1) {
     require_once ('./conn.php');
 }
 
-$id_piazzola=$_POST['id_piazzola'];
+$id_piazzola=$_POST['piazzola'];
 
 echo $id_piazzola."<br>";
 
