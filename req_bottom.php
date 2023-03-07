@@ -53,6 +53,7 @@
 
 
 <script src="./vendor/leaflet/leaflet.js"></script>
+<script src="./vendor/leaflet-locatecontrol-0.79.0/dist/L.Control.Locate.min.js"></script>
 
 
 

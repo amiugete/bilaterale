@@ -55,7 +55,7 @@ session_start();
 <!-- MAPPA LEAFLET -->
 <link rel="stylesheet" href="./vendor/leaflet/leaflet.css">
 
-
+<link rel="stylesheet" href="./vendor/leaflet-locatecontrol-0.79.0/dist/L.Control.Locate.css">
 
 <script>
 
@@ -72,10 +72,10 @@ var onResize = function() {
         $("#sit_btn1").css("display", 'none'); 
         $("#link_pc1").css("display", 'none');
         $("#link_pc2").css("display", 'none');
-        $("#intestazione").css("display", 'none');
-        $(".banner").css("height", 0);
+        //$("#intestazione").css("display", 'none');
+        //$(".banner").css("height", 0);
         $(".pull-left").css("height", 0);
-        $(".navbar-sticky-top").css("top", 0);
+        //$(".navbar-sticky-top").css("top", 0);
     } else {
         $("#sit_btn1").css("display", 'inline-block'); 
         $("#link_pc1").css("display", 'inline-block');

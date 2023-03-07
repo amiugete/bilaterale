@@ -7,13 +7,15 @@ session_start();
 
 if ($_SESSION['test']==1) {
     require_once ('./conn_test.php');
+    $titolo_test=' (ambiente di TEST)';
 } else {
     require_once ('./conn.php');
+    $titolo_test='';
 }
 
 $id_piazzola=$_POST['piazzola'];
 
-echo $id_piazzola."<br>";
+//echo $id_piazzola."<br>";
 
 
 
@@ -21,28 +23,28 @@ echo $id_piazzola."<br>";
 $indi= $_POST['indi'];
 $indi_st=$_POST['indi_st'];
 
-echo $indi."<br>";
-echo $indi_st."<br>";
+//echo $indi."<br>";
+//echo $indi_st."<br>";
 
 
 $carta= $_POST['carta'];
 $carta_st=$_POST['carta_st'];
 
-echo $carta."<br>";
-echo $carta_st."<br>";
+//echo $carta."<br>";
+//echo $carta_st."<br>";
 
 $multi= $_POST['multi'];
 $multi_st=$_POST['multi_st'];
 
-echo $multi."<br>";
-echo $multi_st."<br>";
+//echo $multi."<br>";
+//echo $multi_st."<br>";
 
 
 $org= $_POST['org'];
 $org_st=$_POST['org_st'];
 
-echo $org."<br>";
-echo $org_st."<br>";
+//echo $org."<br>";
+//echo $org_st."<br>";
 
 #exit;
 # ciclo su elementi da eliminare
@@ -61,7 +63,7 @@ $result1 = pg_prepare($conn, "my_query_e", $query_1);
 $result1 = pg_execute($conn, "my_query_e", array($id_piazzola));
 
 $status1= pg_result_status($result1);
-echo "Status1=".$status1."<br>";
+//echo "Status1=".$status1."<br>";
     
 while($r1 = pg_fetch_assoc($result1)) {
     echo "Elemento da eliminare:".$r1['id_elemento']."<br>";

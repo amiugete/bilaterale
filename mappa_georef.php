@@ -186,6 +186,20 @@ var ourCustomControl = L.Control.extend({
 mymap.addControl(new ourCustomControl());
 
 
+// affiungo il control per la geolocalizzazione (!! al plugin)
+var lc = L.control
+  .locate({
+    position: "topleft",
+    returnToPrevBounds: true,
+    showCompass: true,
+    drawMarker: true,
+    //compassClass: CompassMarker,
+    showPopup: false, 
+    strings: {
+      title: "Localizzami sulla base della posizione GNSS (funziona da mobile)"
+    }
+  })
+  .addTo(mymap);
 
 	var popup = L.popup();
 	

@@ -79,10 +79,10 @@ if (isset($_POST["ldapLogin"])){
 				setcookie('un', $ldapUser, time() + (86400 * 7), "/"); // 86400 = 1 day
 				//header("Location: ./piazzola.php");
 				//header("Location:./piazzola.php");
-				echo '<script>window.location.replace("./piazzola.php")</script>';
+				echo '<script>window.location.replace("./'.$origine.'")</script>';
 				exit;
 			} else{  
-				$errorMessage = "Invalid credentials for user ".$ldapUser." / ".$ldapPassword." inserted!";
+				$errorMessage = "Credenziali errate per l'utente DSI\\".$ldapUser." Controlla il nome utente e/o la password inserita!";
 			}
 		}
 	}
@@ -104,19 +104,21 @@ if (isset($_POST["ldapLogin"])){
 		?>
 		<h3 style="color:orange">Inserisci credenziali AMIU (utente e password con cui accedi al PC) </h3>
 		<form action="" method="post" style="display:inline-block;">
-        <div class="form-group">
-		<label for="exampleInputEmail1">Utente</label>
-			<input type="text" class="form-control" name="user" value="" maxlength="50">
-		</div>
-		
-        <div class="form-group">
-			<label for="exampleInputPassword1">Password</label>
-			<input type="password" class="form-control" name="password" id="password" value="" maxlength="50">  <i class="bi bi-eye-slash" 
-                    id="togglePassword"></i>
-		</div>
-		<br>
-        <div class="form-group">
-			<input type="submit"  class="btn btn-primary" name="ldapLogin" value="Login">
+        <div class="row g-3 align-items-center">
+			<div class="form-group">
+				<label for="user">Utente</label>
+				<input type="text" class="form-control" name="user" value="" maxlength="50">
+			</div>
+			
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" class="form-control" name="password" id="password" value="" maxlength="50">  <i class="bi bi-eye-slash" 
+						id="togglePassword"></i>
+			</div>
+			<br>
+			<div class="form-group">
+				<input type="submit"  class="btn btn-primary" name="ldapLogin" value="Login">
+			</div>
 		</div>
 		</form>
 
