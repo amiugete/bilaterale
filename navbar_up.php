@@ -1,6 +1,6 @@
 <?php
 
-
+$check_edit=0;
 // Faccio il controllo su SIT
 
 $query_role='SELECT  su.id_user, sr.id_role, sr."name" as "role" FROM util.sys_users su
@@ -18,8 +18,11 @@ while($r = pg_fetch_assoc($result_n)) {
   $check_SIT=1;
 }
 
+$ruoli_edit=array('UT', 'IT', 'ADMIN', 'SUPERUSER');
 
-
+if (in_array($role_SIT, $ruoli_edit)) {
+  $check_edit=1;
+}
 
 ?>
 
@@ -74,7 +77,16 @@ while($r = pg_fetch_assoc($result_n)) {
       <!--div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
         <ul class="navbar-nav ms-auto flex-nowrap"-->
         <span class="navbar-light">
-          <i class="fas fa-user"></i>Connesso come <?php echo $_SESSION['username'];?> (<?php echo $role_SIT;?>)
+          <i class="fas fa-user"></i>Connesso come <?php echo $_SESSION['username'];?> (
+            <?php 
+              echo $role_SIT;
+            if ($check_edit==0){
+              echo '<i class="fa-regular fa-eye"></i>';
+            } else {
+              echo '<i class="fa-solid fa-pencil"></i>';
+            }
+            ?>
+            )
         </span>
 
     </div>

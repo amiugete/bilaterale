@@ -362,12 +362,13 @@ while($r2 = pg_fetch_assoc($result2)) {
 </div>
 </div>
 <hr>
+<?php if ($check_edit==1){?>
 <div class="row g-3 align-items-center">
 <button type="submit" class="btn btn-info">
 <i class="fa-solid fa-plus"></i> Crea piazzola
 </button>
 </div>
-
+<?php }?>
 </div> <!-- chiudo row -->
 
 

@@ -300,7 +300,9 @@ while($r_p = pg_fetch_assoc($result_p)) {
       </label>
     </div>   
     <div class="form-group  col-md-2">
-      <button type="submit" class="btn btn-info">
+      <button type="submit" class="btn btn-info"
+    <?php if ($check_edit==0){echo 'disabled=""';}?>
+    >
       <i class="fa-solid fa-pen-to-square"></i>Aggiorna piazzola
       </button>
     </div>
@@ -438,7 +440,7 @@ echo "</ul>";
 ?>
 <form autocomplete="off" id="prospects_form3" action="eliminazione.php" method="post">
   <input type="hidden" id="piazzola" name="piazzola" value="<?php echo $id_piazzola?>">
-  <button class="btn btn-danger"> <i class="fa-solid fa-trash" title="Elimina piazzola"></i> </button>
+  <button class="btn btn-danger" <?php if ($check_edit==0){echo 'disabled=""';}?>> <i class="fa-solid fa-trash" title="Elimina piazzola"></i> </button>
   </form>
 </div>
 <?php
@@ -560,6 +562,7 @@ function clickButton() {
 
 <?php if ($check_bilaterale==0 and  $check_eliminata==0) {?>
 <!--form name="bilat" method="post" autocomplete="off" action="mod_piazzola.php" -->
+<?php if ($check_edit==1){?>
 <form autocomplete="off" id="bilat" action="" onsubmit="return clickButton();">
 <input type="hidden" id="id_piazzola" name="id_piazzola" value=<?php echo $id_piazzola?>>
 
@@ -648,6 +651,7 @@ function clickButton() {
 <?php if ($check_stato_intervento==1){?>
 title="Non posso trasformare la piazzole perchè c'è un intervento preso in carico. Contattare manutenzione cassonetti" disabled=""
 <?php }?>
+<?php if ($check_edit==0){echo 'disabled=""';}?>
 >
 <i class="fa-solid fa-arrows-turn-to-dots"></i>Trasforma a bilaterale
 </button>
@@ -657,6 +661,8 @@ title="Non posso trasformare la piazzole perchè c'è un intervento preso in car
 </div>
 
 </form>
+<?php }?>
+
 <?php } else if ($check_eliminata==0){ echo "La piazzola è già bilaterale"; }?>
 
 </div>
@@ -670,6 +676,7 @@ title="Non posso trasformare la piazzole perchè c'è un intervento preso in car
 <hr>
 <?php }
 ?>
+<?php if ($check_edit==1){?>
 <form  action="upload_foto.php" method="post" enctype="multipart/form-data">
 <!--form  action="" onsubmit="return clickButton2();" method="post" enctype="multipart/form-data"-->
 <!--form id="form_foto" method="post" enctype="multipart/form-data"-->
@@ -686,9 +693,10 @@ title="Non posso trasformare la piazzole perchè c'è un intervento preso in car
   <input type="file" class="form-control form-control-sm" name="fileToUpload" id="fileToUpload" required="">
   </div>
   <div class="mb-3">
-  <input type="submit" value="Upload Image" name="submit" class="btn btn-primary mb-3">
+  <input type="submit" value="Carica foto" name="submit" class="btn btn-primary mb-3" >
   </div>
 </form>
+<?php }?>
 </div>
 
 </div>

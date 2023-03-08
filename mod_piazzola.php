@@ -272,6 +272,64 @@ while ($i< $org){
 }
 
 
+
+//****************************************************************************
+//			Invio mail
+//****************************************************************************
+
+require_once('invio_mail_general.php');
+
+if ($_SESSION['username']!='Marzocchi' && $_SESSION['username'] != 'Magioncalda'){
+// In questo momento il pezzo sopra non serve.. più semplice indirizzo fisso
+    $mails=array('roberto.marzocchi@amiu.genova.it');
+} else {
+    $mails=array('vobbo@libero.it','roberto.marzocchi@amiu.genova.it');
+}
+
+
+while (list ($key, $val) = each ($mails)) {
+  $mail->AddAddress($val);
+}
+//Set the subject line
+$mail->Subject = 'Piazzola bilateralizzata attraverso l\'applicativo per il passaggio al bilaterale.';
+//$mail->Subject = 'PHPMailer SMTP without auth test';
+//Read an HTML message body from an external file, convert referenced images to embedded,
+//convert HTML into a basic plain-text alternative body
+$body =  'Piazzola: '.$id_piazzola.' bilateralizzata <br><br>'.$testo_mail.'
+
+ <br> <br> '.$titolo_app.'';
+  
+require('./informativa_privacy_mail.php');
+
+$mail-> Body=$body ;
+
+//$mail->Body =  'Corpo del messaggio';
+//$mail->msgHTML(file_get_contents('E\' arrivato un nuovo incarico da parte del Comune di Genova. Visualizza lo stato dell\'incarico al seguente link e aggiornalo quanto prima. <br> Ti chiediamo di non rispondere a questa mail'), __DIR__);
+//Replace the plain text body with one created manually
+$mail->AltBody = 'This is a plain-text message body';
+//Attach an image file
+//$mail->addAttachment('images/phpmailer_mini.png');
+//send the message, check for errors
+//echo "<br>OK 2<br>";
+if (!$mail->send()) {
+    echo "<h3>Problema nell'invio della mail: " . $mail->ErrorInfo;
+	?>
+	<script> //alert(<?php echo "Problema nell'invio della mail: " . $mail->ErrorInfo;?>) </script>
+	<?php
+	//echo '<br>La comunicazione è stata correttamente inserita a sistema, ma si è riscontrato un problema nell\'invio della mail.';
+	echo '<div style="text-align: center;"><img src="../../img/no_mail_com.png" width="75%" alt=""></div>';
+	echo '<br>Entro 10" verrai re-indirizzato alla pagina precedente, clicca al seguente ';
+	echo '<a href="./piazzola.php?piazzola='.$id_piazzola.'">link</a> per saltare l\'attesa.</h3>' ;
+	//sleep(30);
+    header("refresh:10;url=./piazzola.php?piazzola=".$id_piazzola."");
+} else {
+    echo "Message sent!";
+	//header("location: ./piazzola.php?piazzola=".$id_piazzola);
+}
+//exit;
+//header("location: ../dettagli_incarico.php?id=".$id);
+
+
 # questa parte è da rivedere, bisogna usare jquery
 #header("location:javascript://history.go(-1)");
 
