@@ -160,7 +160,7 @@ while($rse = pg_fetch_assoc($result_se)) {
     $status2= pg_result_status($result_ie2);
 
 }
-//exit;
+exit;
 header("location: ./piazzola.php?piazzola=".$id_piazzola);
 
 
