@@ -434,13 +434,113 @@ while($r = pg_fetch_assoc($result_e)) {
       }
       echo '</b>';
     }
+    $query_percorsi="select p.id_percorso, p.cod_percorso, p.descrizione, fo.descrizione_long, p.stagionalita 
+    from elem.elementi_aste_percorso eap 
+    join elem.aste_percorso ap on ap.id_asta_percorso = eap.id_asta_percorso 
+    join elem.percorsi p on p.id_percorso = ap.id_percorso
+    join etl.frequenze_ok fo on fo.cod_frequenza = p.frequenza 
+    where id_elemento = $1 and p.id_categoria_uso in (3,6)";
+    $result_p = pg_prepare($conn, "my_query_percorsi", $query_percorsi);
+    $result_p = pg_execute($conn, "my_query_percorsi", array($r["id_elemento"]));
+    $status1= pg_result_status($result_p);
+    $check_percorsi=0;
+    echo '<ul>';
+    while($rp = pg_fetch_assoc($result_p)) {
+      echo '<li> <form class="form-inline" name="addpercorso" method="post" id="addpercorso" autocomplete="off" action="rm_percorso.php" >
+      <div class="form-row align-items-center">
+      <i class="fa-solid fa-road"></i>'. $rp['cod_percorso']. ' - '.$rp['descrizione']. ' ('.$rp['descrizione_long'].')'; 
+      $check_percorsi=1;
+      ?>
+      
+        <input type="hidden" id="piazzola" name="piazzola" value="<?php echo $id_piazzola?>">
+        <input type="hidden" id="elemento" name="elemento" value="<?php echo $r["id_elemento"]?>">
+        <input type="hidden" id="percorso" name="percorso" value="<?php echo $rp["id_percorso"]?>">
+        <button  type="submit" class="btn btn-danger btn-sm  mb-2">
+        <i class="fa-solid fa-trash-can" title="Rimuovi elementi di tipo <?php echo $r['tipo_elem'];?> da percorso"></i></button>
+      </form>
+    </div>
+  </li>
+      <?php
+    }
+    if ($check_percorsi==0){
+      echo '<li><i class="fa-solid fa-road-circle-xmark" style="color:red" title="Nessun percorso associato"></i></li>';
+    }
+    
+    // Qua devo fare un form 
+
+    ?>
+
+    <form name="addpercorso" method="post" id="addpercorso" autocomplete="off" action="add_percorso.php" >
+    <input type="hidden" id="piazzola" name="piazzola" value="<?php echo $id_piazzola?>">
+    <input type="hidden" id="elemento" name="elemento" value="<?php echo $r["id_elemento"]?>">
+<div class="row">
+
+<div class="form-group col-lg-6">
+  <!--label for="via">Piazzola:</label> <font color="red">*</font-->
+				
+				
+  <select class="selectpicker show-tick form-control" 
+  data-live-search="true" name="percorso" id="percorso" required="">
+
+  <option name="percorso" value="NO">Seleziona un percorso</option>
+  <?php            
+  $queryp2="select p.id_percorso, p.cod_percorso, p.descrizione  
+  from elem.percorsi p 
+  join elem.elementi_servizio es on es.id_servizio = p.id_servizio 
+  join elem.elementi e on e.tipo_elemento = es.tipo_elemento 
+  where p.id_categoria_uso in (3,6)
+  and e.id_elemento = $1
+  and p.id_percorso not in (select ap.id_percorso  
+  from elem.elementi_aste_percorso eap 
+  join elem.aste_percorso ap on ap.id_asta_percorso = eap.id_asta_percorso 
+  join elem.percorsi p on p.id_percorso = ap.id_percorso
+  where id_elemento = $1 and p.id_categoria_uso in (3,6))";
+  $result_p2 = pg_prepare($conn, "my_query_percorsi2", $queryp2);
+  $result_p2 = pg_execute($conn, "my_query_percorsi2", array($r["id_elemento"]));
+  //echo $query1;    
+  while($rp2 = pg_fetch_assoc($result_p2)) { 
+      $valore=  $r2['id_via']. ";".$r2['nome'];            
+  ?>
+              
+          <option name="percorso" value="<?php echo $rp2['id_percorso'];?>" ><?php echo $rp2['cod_percorso'] .' - ' .$rp2['descrizione'];?></option>
+  <?php } ?>
+
+  </select>  
+  <!--small>L'elenco delle piazzole..  </small-->        
+</div>
+
+
+
+
+
+
+<div  name="conferma2" id="conferma2" class="form-group col-lg-3 ">
+<!--input type="submit" name="submit" id=submit class="btn btn-info" value="Recupera dettagli piazzola"-->
+<button type="submit" class="btn btn-info">
+Add</button>
+</div>
+
+
+
+</div> <!-- fine row-->
+</form>
+
+
+<?php
+
+
+    
+    echo '</ul>';
+
+
+
     echo "</li>";
 }
 echo "</ul>";
 ?>
 <form autocomplete="off" id="prospects_form3" action="eliminazione.php" method="post">
   <input type="hidden" id="piazzola" name="piazzola" value="<?php echo $id_piazzola?>">
-  <button class="btn btn-danger" <?php if ($check_edit==0){echo 'disabled=""';}?>> <i class="fa-solid fa-trash" title="Elimina piazzola"></i> </button>
+  <button class="btn btn-danger" <?php if ($check_edit==0){echo 'disabled=""';}?>> <i class="fa-solid fa-trash" title="Elimina piazzola"></i> Elimina piazzola</button>
   </form>
 </div>
 <?php

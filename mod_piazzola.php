@@ -279,11 +279,11 @@ while ($i< $org){
 
 require_once('invio_mail_general.php');
 
-if ($_SESSION['username']!='Marzocchi' && $_SESSION['username'] != 'Magioncalda'){
+if ($_SESSION['username']=='Marzocchi' || $_SESSION['username'] == 'Magioncalda'){
 // In questo momento il pezzo sopra non serve.. più semplice indirizzo fisso
     $mails=array('roberto.marzocchi@amiu.genova.it');
 } else {
-    $mails=array('vobbo@libero.it','roberto.marzocchi@amiu.genova.it');
+    $mails=array('assterritorio@amiu.genova.it');
 }
 
 
