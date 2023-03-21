@@ -161,7 +161,7 @@ while($rse = pg_fetch_assoc($result_se)) {
 
 }
 exit;
-header("location: ./piazzola.php?piazzola=".$id_piazzola);
+//header("location: ./piazzola.php?piazzola=".$id_piazzola);
 
 
 ?>
