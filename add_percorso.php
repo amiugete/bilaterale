@@ -100,7 +100,7 @@ if ($check_asta_esistente==0){
     echo "id_percorso = ".$id_percorso."<br>";
     echo "id_piazzola = ".$id_piazzola."<br>";
     echo "r_m_t = ".$r_m_t."<br>";
-
+    exit;
     $insert_asta_percorso="INSERT INTO elem.aste_percorso
     (id_asta_percorso, num_seq,
      id_asta, lato_servizio, tipo,
@@ -149,7 +149,7 @@ while($rse = pg_fetch_assoc($result_se)) {
     $status2= pg_result_status($result_ie);
     echo "Stato query 4 = ".$status2."<br>";
 
-    $descrizione_operazione2='Aggiunta eleemnto '. $rse['id_elemento'].' da piazzola '.$id_piazzola.' al percorso '. $id_percorso.'';
+    $descrizione_operazione2='Aggiunta elemento '. $rse['id_elemento'].' da piazzola '.$id_piazzola.' al percorso '. $id_percorso.'';
     $query_history2= "INSERT INTO util.sys_history
     (type, action, description,
      datetime, id_user, id_percorso, id_elemento, id_piazzola)
