@@ -514,7 +514,7 @@ while($r = pg_fetch_assoc($result_e)) {
 
 
 
-<div  name="conferma2" id="conferma2" class="form-group col-lg-3 ">
+<div  name="aggiungi_percorso" id="aggiungi_percorso" class="form-group col-lg-3 ">
 <!--input type="submit" name="submit" id=submit class="btn btn-info" value="Recupera dettagli piazzola"-->
 <button type="submit" class="btn btn-info">
 Add</button>
