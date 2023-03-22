@@ -614,37 +614,18 @@ function clickButton() {
       //Send the proper header information along with the request
       http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-      http.onreadystatechange = function() {//Call a function when the state changes.
-          /*if(http.readyState == 4 && http.status == 200) {
-            //alert(http.status);
-              if (http.responseText == 3) {
-                //alert("Intervento chiuso con successo");
-                window.location.reload();
-                return false;
-              } else {
-                //alert(http.responseText);
-                $("#bilat").hide();
-                $("#comp_piazz").load(location.href + " #comp_piazz");
-                $("#successo").show();
-                window.location.reload();
-                return false;
-                }
-              //window.location.href = "chiusura.php";
-              //$("#dettagli").hide();
-              //$("#successo").show();
-              //$("#comp_piazz").hide();
-              
-          }*/
+      /*http.onreadystatechange = function() {//Call a function when the state changes.
+          
           if (http.readyState === XMLHttpRequest.DONE) {
           const status = http.status;
           if (status === 0 || (status >= 200 && status < 400)) {
             // The request has been completed successfully
             console.log(http.responseText);
             $("#bilat").hide();
-              $("#comp_piazz").load(location.href + " #comp_piazz");
-              $("#successo").show();
-              window.location.reload();
-              return false;
+            $("#comp_piazz").load(location.href + " #comp_piazz");
+            $("#successo").show();
+            window.location.reload();
+            return false;
           } else {
             console.log(http.responseText);
             alert("Problemi con le modifiche alle piazzole!");
@@ -653,10 +634,27 @@ function clickButton() {
   }
 
       }
-      http.send(params);
+      http.send(params);*/
       
     
 
+      http.onreadystatechange = function() {//Call a function when the state changes.
+          if(http.readyState == 4 && http.status == 200) {
+              if (http.responseText == 3) {
+                //alert("Intervento chiuso con successo");
+              } else {
+                //alert(http.responseText);
+              }
+          }
+      }
+      http.send(params);
+
+      console.log(http.responseText);
+      $("#bilat").hide();
+      $("#comp_piazz").load(location.href + " #comp_piazz");
+      $("#successo").show();
+      window.location.reload();
+      return false;
 
       
 
