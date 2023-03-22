@@ -1,4 +1,7 @@
 <?php
+// definisco la variabile lifetime
+$lifetime=86400;
+
 
 $check_edit=0;
 // Faccio il controllo su SIT
@@ -77,7 +80,7 @@ if (in_array($role_SIT, $ruoli_edit)) {
       <!--div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
         <ul class="navbar-nav ms-auto flex-nowrap"-->
         <span class="navbar-light">
-          <i class="fas fa-user"></i>Connesso come <?php echo $_SESSION['username'];?> (
+          <i class="fas fa-user"></i> Connesso come <?php echo $_SESSION['username'];?> (
             <?php 
               echo $role_SIT;
             if ($check_edit==0){

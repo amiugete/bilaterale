@@ -160,6 +160,14 @@ while($rse = pg_fetch_assoc($result_se)) {
     $status2= pg_result_status($result_ie2);
 
 }
+
+// SISTEMO LE SEQUENZE
+$query_sequenze="SELECT pg_catalog.setval('elem.sq_aste_perc'::text, COALESCE((SELECT MAX(id_asta_percorso)+1 FROM elem.aste_percorso), 1)::bigint, false);";
+$result_p = pg_prepare($conn, "query_sequenze", $query_sequenze);
+$result_p = pg_execute($conn, "query_sequenze", array());
+
+
+
 //exit;
 header("location: ./piazzola.php?piazzola=".$id_piazzola);
 
