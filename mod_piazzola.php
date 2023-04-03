@@ -13,9 +13,9 @@ if ($_SESSION['test']==1) {
     $titolo_test='';
 }
 
-$id_piazzola=$_POST['piazzola'];
+$id_piazzola=$_POST['id_piazzola'];
 
-//echo $id_piazzola."<br>";
+#echo $id_piazzola."<br>";
 
 
 
@@ -23,8 +23,8 @@ $id_piazzola=$_POST['piazzola'];
 $indi= $_POST['indi'];
 $indi_st=$_POST['indi_st'];
 
-//echo $indi."<br>";
-//echo $indi_st."<br>";
+#echo $indi."<br>";
+#echo $indi_st."<br>";
 
 
 $carta= $_POST['carta'];
@@ -66,7 +66,7 @@ $status1= pg_result_status($result1);
 //echo "Status1=".$status1."<br>";
     
 while($r1 = pg_fetch_assoc($result1)) {
-    echo "Elemento da eliminare:".$r1['id_elemento']."<br>";
+    #echo "Elemento da eliminare:".$r1['id_elemento']."<br>";
     # cerco interventi da eliminare
 
     $query_i1="select id from gestione_oggetti.v_intervento vi 
@@ -132,7 +132,7 @@ WHERE id_asta_percorso=$1 AND id_elemento=$2;";
         $status_p2= pg_result_status($result_p2);
 
             
-        echo "status_p2=".$status_p2."<br>";
+        #echo "status_p2=".$status_p2."<br>";
 
         $des='Eliminati 1 '.$r_p['descrizione'].' da piazzola '.$id_piazzola .'';
 
@@ -144,12 +144,12 @@ WHERE id_asta_percorso=$1 AND id_elemento=$2;";
         VALUES ('PERCORSO', 'UPDATE_ELEM', $1 ,
         now(), $2, $3, $4, $5);";
 
-        echo $des."<br>";
-        echo "id user:".$_SESSION['id_user']."<br>";
-        echo "id piazzola:".$id_piazzola."<br>";
-        echo "id percorso:".$r_p['id_percorso']."<br>";
-        echo "id elemento:".$r1['id_elemento']."<br>";
-        echo $query_p3."<br>";
+        #echo $des."<br>";
+        #echo "id user:".$_SESSION['id_user']."<br>";
+        #echo "id piazzola:".$id_piazzola."<br>";
+        #echo "id percorso:".$r_p['id_percorso']."<br>";
+        #echo "id elemento:".$r1['id_elemento']."<br>";
+        #echo $query_p3."<br>";
 
 
 
@@ -157,7 +157,7 @@ WHERE id_asta_percorso=$1 AND id_elemento=$2;";
         $result_p3 = pg_execute($conn, "my_query_p3", array($des, $_SESSION['id_user'], $id_piazzola, $r_p['id_percorso'], $r1['id_elemento']));
         $status_p3= pg_result_status($result_p3);
 
-        echo "status_p3=".$status_p3."<br>";
+        #echo "status_p3=".$status_p3."<br>";
 
     }
 
@@ -174,7 +174,7 @@ WHERE id_asta_percorso=$1 AND id_elemento=$2;";
 
     $status_elimina= pg_result_status($result_elimina);
 
-    echo "status_elimina=".$status_elimina."<br>";
+    #echo "status_elimina=".$status_elimina."<br>";
     
 
 
@@ -184,7 +184,7 @@ WHERE id_asta_percorso=$1 AND id_elemento=$2;";
 } # fine ciclo su elementi da eliminare
 
 
-echo "Ho eliminato tutto<br>"; 
+#echo "Ho eliminato tutto<br>"; 
 # creo elementi bilaterali
 #exit;
 
@@ -323,14 +323,15 @@ if (!$mail->send()) {
 	//sleep(30);
     header("refresh:10;url=./piazzola.php?piazzola=".$id_piazzola."");
 } else {
-    echo "Message sent!";
-	//header("location: ./piazzola.php?piazzola=".$id_piazzola);
+    #echo "Message sent!";
+	header('Location: piazzola.php?piazzola='.$id_piazzola.'');
 }
+//echo $id_piazzola;
 //exit;
 //header("location: ../dettagli_incarico.php?id=".$id);
 
 
 # questa parte è da rivedere, bisogna usare jquery
 #header("location:javascript://history.go(-1)");
-
+header('Location: piazzola.php?piazzola='.$id_piazzola.'');
 ?>

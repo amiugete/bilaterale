@@ -608,7 +608,7 @@ function clickButton() {
 
       var http = new XMLHttpRequest();
       var url = 'mod_piazzola.php';
-      var params = 'piazzola='+encodeURIComponent(id_piazzola)+'&indi='+encodeURIComponent(indi)+'&indi_st='+encodeURIComponent(indi_st)+'&carta='+encodeURIComponent(carta)+'&carta_st='+encodeURIComponent(carta_st)+'&multi='+encodeURIComponent(multi)+'&multi_st='+encodeURIComponent(multi_st)+'&org='+encodeURIComponent(org)+'&org_st='+encodeURIComponent(org_st)+'';
+      var params = 'id_piazzola='+encodeURIComponent(id_piazzola)+'&indi='+encodeURIComponent(indi)+'&indi_st='+encodeURIComponent(indi_st)+'&carta='+encodeURIComponent(carta)+'&carta_st='+encodeURIComponent(carta_st)+'&multi='+encodeURIComponent(multi)+'&multi_st='+encodeURIComponent(multi_st)+'&org='+encodeURIComponent(org)+'&org_st='+encodeURIComponent(org_st)+'';
       http.open('POST', url, true);
 
       //Send the proper header information along with the request
@@ -669,9 +669,10 @@ function clickButton() {
 
 
 <?php if ($check_bilaterale==0 and  $check_eliminata==0) {?>
-<!--form name="bilat" method="post" autocomplete="off" action="mod_piazzola.php" -->
 <?php if ($check_edit==1){?>
-<form autocomplete="off" id="bilat" action="" onsubmit="return clickButton();">
+<!--form autocomplete="off" id="bilat" action="" onsubmit="return clickButton();"-->
+<form name="bilat" method="POST" autocomplete="off" action="mod_piazzola.php">
+
 <input type="hidden" id="id_piazzola" name="id_piazzola" value=<?php echo $id_piazzola?>>
 
 <div class="row g-3 align-items-center">
