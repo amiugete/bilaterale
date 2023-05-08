@@ -275,7 +275,7 @@ while($r_p = pg_fetch_assoc($result_p)) {
     </div>
     <div class="form-group col-md-1">
       <label for="via"> Civico </label>
-      <input type="text" name="civ" id="civ" class="form-control" value="<?php echo $r_p['testo'];?>">
+      <input type="text" name="civ" id="civ" class="form-control" value="<?php echo $r_p['numero_civico'];?>">
     </div>
     <div class="form-group  col-md-6">
       <label for="rif"> Riferimento </label> <font color="red">*</font>
