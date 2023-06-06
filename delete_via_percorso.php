@@ -3,8 +3,8 @@
 session_start();
 #require('../validate_input.php');
 
-require_once('./funzioni_jwt.php');
-echo $_SESSION['test']."<br>";
+//require_once('./funzioni_jwt.php');
+//echo $_SESSION['test']."<br>";
 //exit;
 
 if ($_SESSION['test']==1) {

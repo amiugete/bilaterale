@@ -1,9 +1,9 @@
 <?php
-session_set_cookie_params($lifetime);
+//session_set_cookie_params($lifetime);
 session_start();
 
 
-if(!isset($_COOKIE['un'])) {
+/*if(!isset($_COOKIE['un'])) {
     //echo "Cookie named un is not set!";
   } else {
     //echo "Cookie un is set!<br>";
@@ -25,7 +25,9 @@ if (!$_SESSION['username']){
   $_COOKIE['origine']=basename($_SERVER['PHP_SELF']);
   header("location: ./login.php");
   //exit;
-}    
+}
+*/
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

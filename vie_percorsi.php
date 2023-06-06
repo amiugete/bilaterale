@@ -221,8 +221,10 @@ while($r1 = pg_fetch_assoc($result1)) {
 		<th data-field="descrizione" data-sortable="false" data-visible="true"  data-filter-control="select">Percorso</th>
     <th data-field="id_percorso" data-sortable="false" data-filter-control="select" data-visible="false">Id percorso</th>
     <th data-field="n_elem" data-sortable="false" data-filter-control="select" data-visible="true">Numero elementi</th>
+    <?php if ($role_SIT=='IT' or $role_SIT=='ADMIN'){?>
     <th data-field="aggiornamenti" data-sortable="true" data-visible="true" data-formatter="Delete">Rimuovi via</th>
-    </tr>
+      <?php }?>
+  </tr>
 </thead>
 </table>
 
