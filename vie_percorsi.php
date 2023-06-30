@@ -62,6 +62,11 @@ if ($_SESSION['test']==1) {
 <body>
 
 <?php require_once('./navbar_up.php');
+if ($id_role_SIT >=5) {
+  redirect('no_permessi.php');
+  //exit;
+}
+
 $name=dirname(__FILE__);
 ?>
 

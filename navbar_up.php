@@ -33,25 +33,27 @@ if(!isset($_COOKIE['un'])) {
   //echo $token . "<br><br>";
 
   //echo $secret_pwd ."ok 0<br><br>";
-  if ($token){
-    $decoded1=json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode('.', $token)[1]))));
-    foreach($decoded1 as $key => $value)
-    {
-      //echo $key." is ". $value . "<br>";
-      if ($key=='userId') {
-            $userId = (int)$value;
-      }
-      if ($key=='name') {
-        $_SESSION['username'] = $value;
-      }
-      if ($key=='userId') {
-        $userId = (int)$value;
-      }
-      if ($key=='exp') {
-            $exp = (int)$value;
-            if (time()>$exp){
-                die ("Token di autorizzazione scaduto");
-            }
+    if (!$_SESSION['username']){
+    if ($token){
+      $decoded1=json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode('.', $token)[1]))));
+      foreach($decoded1 as $key => $value)
+      {
+        //echo $key." is ". $value . "<br>";
+        if ($key=='userId') {
+              $userId = (int)$value;
+        }
+        if ($key=='name') {
+          $_SESSION['username'] = $value;
+        }
+        if ($key=='userId') {
+          $userId = (int)$value;
+        }
+        if ($key=='exp') {
+              $exp = (int)$value;
+              if (time()>$exp){
+                  die ("Token di autorizzazione scaduto");
+              }
+        }
       }
     }
   } /*else {
@@ -151,9 +153,13 @@ if (in_array($role_SIT, $ruoli_edit)) {
         <li class="nav-item">
           <a class="nav-link" href="./nuova_piazzola.php">Nuova piazzola</a>
         </li>
+        <?php } ?>
+        <?php if ($id_role_SIT > 1) { ?>
         <li id="link_pc1" class="nav-item">
           <a class="nav-link" href="./duplica_percorso.php">Percorso altra frazione</a>
         </li>
+        <?php } ?>
+        <?php if ($id_role_SIT >=5) { ?>
         <li id="link_pc2" class="nav-item">
           <a class="nav-link" href="./vie_percorsi.php">Vie - Percorsi</a>
         </li>
