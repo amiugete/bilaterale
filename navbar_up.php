@@ -177,7 +177,7 @@ if (in_array($role_SIT, $ruoli_edit)) {
       <!--div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
         <ul class="navbar-nav ms-auto flex-nowrap"-->
         <span class="navbar-light">
-          <i class="fas fa-user"></i> Connesso come <?php if ($id_role_SIT >=5) { echo $id_role_SIT;}?> <?php echo $_SESSION['username'];?> (
+          <i class="fas fa-user"></i> Connesso come <?php echo $_SESSION['username'];?> (
             <?php 
               echo $role_SIT;
             if ($check_edit==0){
