@@ -64,7 +64,7 @@ if ($_SESSION['test']==1) {
 
 <?php require_once('./navbar_up.php');
 
-if ($id_role_SIT >1) {
+if ($id_role_SIT <1) {
   redirect('no_permessi.php');
   //exit;
 }
