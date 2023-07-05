@@ -125,10 +125,13 @@
   }
 
 /* Smartphones ----------- */
-@media only screen and (max-width: 760px) {
+@media only screen and (max-width: 520px) {
     #sit_btn1 { display: none; }
   }
 
+  @media only screen and (max-width: 520px) {
+    #delete_btn1 { display: none; }
+  }
 
 
 

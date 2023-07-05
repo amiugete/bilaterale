@@ -51,7 +51,7 @@ if(!isset($_COOKIE['un'])) {
         if ($key=='exp') {
               $exp = (int)$value;
               if (time()>$exp){
-                  die ("Token di autorizzazione scaduto");
+                  die ('Token di autorizzazione scaduto <br><br><a href="./login.php" class="btn btn-info"> Vai al login </a>');
               }
         }
       }

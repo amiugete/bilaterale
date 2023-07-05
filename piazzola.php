@@ -67,7 +67,7 @@ if ($_SESSION['test']==1) {
 $name=dirname(__FILE__);
 //echo $id_role_SIT;
 //exit;
-if ((int)$id_role_SIT = 0) {
+if ((int)$id_role_SIT == 0) {
   redirect('no_permessi.php');
   //exit;
 }
@@ -560,8 +560,11 @@ echo "</ul>";
 <hr>
 <form autocomplete="off" id="prospects_form3" action="eliminazione.php" method="post">
   <input type="hidden" id="piazzola" name="piazzola" value="<?php echo $id_piazzola?>">
-  <button class="btn btn-danger" <?php if ($check_edit==0){echo 'disabled=""';}?>> <i class="fa-solid fa-trash" title="Elimina piazzola"></i> Elimina piazzola</button>
+  <button id="delete_btn1" class="btn btn-danger pc" <?php if ($id_role_SIT<5){echo 'disabled=""';}?>> 
+  <i class="fa-solid fa-trash" title="Elimina piazzola"></i>
+   Elimina piazzola </button>
   </form>
+  <?php if ($id_role_SIT<5){echo '<br>Modifica consentita solo a assterritorio. Per eliminare una piazzole utilizzare il form per l\'invio delle mail';}?>
 </div>
 <?php
 }
