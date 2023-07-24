@@ -49,7 +49,7 @@ while($r = pg_fetch_assoc($result)) {
 */
 echo "fino a qua";
 // In questo momento il pezzo sopra non serve.. più semplice indirizzo fisso
-$mails=array('vobbo@libero.it','roberto.marzocchi@amiu.genova.it');
+$mails=array('assterritorio@amiu.genova.it','roberto.marzocchi@amiu.genova.it');
 
 
 while (list ($key, $val) = each ($mails)) {
