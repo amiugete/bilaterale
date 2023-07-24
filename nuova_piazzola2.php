@@ -286,7 +286,7 @@ require_once('invio_mail_general.php');
 
 
 
-$mails=array('roberto.marzocchi@amiu.genova.it', 'pippo@amiu.genova.it');
+$mails=array('roberto.marzocchi@amiu.genova.it', 'assterritorio@amiu.genova.it', 'marco.zamboni@ideabs.com');
 
 
 echo "fino a qua 1 ";
