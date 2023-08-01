@@ -792,8 +792,11 @@ title="Non posso trasformare la piazzole perchè c'è un intervento preso in car
 
 <div class="col-md-6"> 
 <?php if ($check_foto == 1) {
+//$timemod=filemtime('/foto_SIT/sit/'.$id_piazzola.'.jpg');
+//echo 'FIle modificato il '.$timemod;
 ?>
-<img src="../foto/sit/<?php echo $id_piazzola?>.jpg" class="rounded img-fluid" alt="Immagine piazzola <?php echo $id_piazzola?> non presente">
+
+<img src="../foto/sit/<?php echo $id_piazzola?>.jpg?hash=<?php echo filemtime('/foto_SIT/sit/'.$id_piazzola.'.jpg')?>" class="rounded img-fluid" alt="Immagine piazzola <?php echo $id_piazzola?> non presente">
 <hr>
 <?php }
 ?>
