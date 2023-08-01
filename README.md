@@ -64,9 +64,12 @@ composer require picqer/php-barcode-generator
 composer require twbs/bootstrap:5.1.3 
 composer require twbs/bootstrap-icons
 composer require snapappointments/bootstrap-select
+composer require firebase/php-jwt
 ```
 
 Per installare l'applicazione è sufficiente lanciare un `composer install` nella cartella principale dlel'applicazione dove è contenuto il file `composer.json`.
+
+Per fare update di versione è sufficiente un `composer update`
 
 ### Submodules
 
