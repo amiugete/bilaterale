@@ -152,6 +152,8 @@ WHERE id_asta_percorso=$1 AND id_elemento=$2;";
         #echo $query_p3."<br>";
 
 
+        
+
 
         $result_p3 = pg_prepare($conn, "my_query_p3", $query_p3);
         $result_p3 = pg_execute($conn, "my_query_p3", array($des, $_SESSION['id_user'], $id_piazzola, $r_p['id_percorso'], $r1['id_elemento']));
@@ -162,6 +164,7 @@ WHERE id_asta_percorso=$1 AND id_elemento=$2;";
     }
 
 
+    
 
     
 
@@ -270,6 +273,17 @@ while ($i< $org){
     $result_insert = pg_execute($conn, "query_insert_o", array($te, $id_piazzola, $id_piazzola));
     $i=$i+1;
 }
+
+
+$query__modifica="UPDATE elem.piazzole
+    SET  modificata_da= $1 where id_piazzola = $2";
+
+
+$result_mod = pg_prepare($conn, "my_query_mod", $query__modifica);
+//$result4 = pg_execute($conn, "my_query4", array($rif, $testo_civ, $id_asta, $note, $privato, $id_transitabilita, $new_id, $lon, $lat));
+$result_mod = pg_execute($conn, "my_query_mod", array($_SESSION['username'], $id_piazzola));
+$status1= pg_result_status($result_mod);
+echo "Status_mod=".$status_mod."<br>";
 
 
 
