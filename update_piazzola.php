@@ -16,7 +16,7 @@ if ($_SESSION['test']==1) {
 
 $id_piazzola=$_POST['id_piazzola'];
 
-echo $id_piazzola."<br>";
+//echo $id_piazzola."<br>";
 
 
 $civ=$_POST['civ'];
@@ -24,10 +24,11 @@ $civ=$_POST['civ'];
 if (!$civ){
     $civ=NULL;
 }
-echo $civ."<br>";
+//echo $civ."<br>";
+
 
 $rif=$_POST['rif'];
-echo $rif."<br>";
+//echo $rif."<br>";
 
 
 $note=$_POST['note'];
@@ -35,7 +36,7 @@ if (!$note){
     $note=NULL;
 }
 
-echo $note."<br>";
+//echo $note."<br>";
 
 /*if ($_POST['privato'] == 'privato'){
     $privato=1;
@@ -44,7 +45,7 @@ echo $note."<br>";
 }*/
 $privato=$_POST['privato'];
 
-echo $privato."<br>";
+//echo $privato."<br>";
 
 
 
@@ -56,9 +57,9 @@ note =$3, suolo_privato = $4, modificata_da= $5 where id_piazzola = $6";
 
 $result4 = pg_prepare($conn, "my_query1", $query_1);
 //$result4 = pg_execute($conn, "my_query4", array($rif, $testo_civ, $id_asta, $note, $privato, $id_transitabilita, $new_id, $lon, $lat));
-$result1 = pg_execute($conn, "my_query1", array($rif, $testo_civ, $note, $privato, $_SESSION['username'], $id_piazzola));
+$result1 = pg_execute($conn, "my_query1", array($rif, $civ, $note, $privato, $_SESSION['username'], $id_piazzola));
 $status1= pg_result_status($result1);
-echo "Status1=".$status1."<br>";
+//echo "Status1=".$status1."<br>";
 
 
 

@@ -131,6 +131,75 @@ if ((int)$id_role_SIT == 0) {
   }
 </script>
 
+<script type="text/javascript">
+        
+function clickButton2() {
+      console.log("Bottone update piazzola cliccato");
+
+
+     
+      var id_piazzola=document.getElementById('id_piazzola').value;
+      console.log(id_piazzola);
+
+      var civ=document.getElementById('civ').value;
+      console.log(civ);
+      
+      var rif=document.getElementById('rif').value;
+      console.log(rif);
+      
+      var note=document.getElementById('note').value;
+      console.log(note);
+
+      if ($('input[name="privato"').is(':checked')){
+        var privato=1;
+      } else {
+        var privato=0;
+      }
+      console.log(privato);
+  
+
+
+      var http = new XMLHttpRequest();
+      var url = 'update_piazzola.php';
+      //var params = 'id_piazzola='+encodeURIComponent(id_piazzola)+'&civ='+encodeURIComponent(civ)+'&rif='+encodeURIComponent(rif)+'&note='+encodeURIComponent(note)+'&privato='+encodeURIComponent(privato)+'';
+      var params = new FormData();
+      params.append('id_piazzola', id_piazzola);
+      params.append('civ', civ);
+      params.append('rif', rif);
+      params.append('note', note);
+      params.append('privato', privato);
+      http.open('POST', url, true);
+
+      //Send the proper header information along with the request
+      /*http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+      http.onreadystatechange = function() {//Call a function when the state changes.
+          if(http.readyState == 4 && http.status == 200) {
+              console.log(http.responseText);
+          }
+      }*/
+      http.onload = function () {
+        // do something to response
+        console.log(this.responseText);
+      };
+
+      http.send(params);
+      
+    
+      $("#dettagli_piazzola").load(location.href + " #dettagli_piazzola");
+      //$("#dettagli_piazzola").load(location.href + " #dettagli_piazzola>*","");
+    
+      //$('#refreshDataContainer').load('piazzola.php #dettagli_piazzola');
+      window.location.reload(true);
+      return false;
+
+  }
+
+
+
+
+</script>
+
 
 <hr>
 <form name="openpiazzola" method="post" id="openpiazzola" autocomplete="off" action="piazzola.php" >
@@ -192,6 +261,7 @@ if ($id_piazzola){
 ?> 
 <h1> Piazzola <?php echo $id_piazzola?> 
 </h1>
+<div id="refreshDataContainer">
 <div id="dettagli_piazzola" class="row">
 <?php
 $query_piazzola="SELECT v.nome as via, p.numero_civico, p.foto, p.riferimento, p.note,
@@ -211,66 +281,7 @@ $statusp= pg_result_status($result_p);
 $check_foto=0;
 ?>
 
-<script type="text/javascript">
-        
-function clickButton2() {
-      console.log("Bottone update piazzola cliccato");
 
-
-     
-      var id_piazzola=document.getElementById('id_piazzola').value;
-      console.log(id_piazzola);
-
-      var civ=document.getElementById('civ').value;
-      console.log(civ);
-      
-      var rif=document.getElementById('rif').value;
-      console.log(rif);
-      
-      var note=document.getElementById('note').value;
-      console.log(note);
-
-      if ($('input[name="privato"').is(':checked')){
-        var privato=1;
-      } else {
-        var privato=0;
-      }
-      console.log(privato);
-  
-
-
-      var http = new XMLHttpRequest();
-      var url = 'update_piazzola.php';
-      var params = 'id_piazzola='+encodeURIComponent(id_piazzola)+'&civ='+encodeURIComponent(civ)+'&rif='+encodeURIComponent(rif)+'&note='+encodeURIComponent(note)+'&privato='+encodeURIComponent(privato)+'';
-      http.open('POST', url, true);
-
-      //Send the proper header information along with the request
-      http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-      http.onreadystatechange = function() {//Call a function when the state changes.
-          if(http.readyState == 4 && http.status == 200) {
-              if (http.responseText == 3) {
-                //alert("Intervento chiuso con successo");
-              } else {
-                //alert(http.responseText);
-              }
-          }
-      }
-      http.send(params);
-      
-    
-
-      $("#dettagli_piazzola").load(location.href + " #dettagli_piazzola");
-    
-      window.location.reload();
-      return false;
-
-  }
-
-
-
-
-</script>
 <form autocomplete="off" id="edit_piazzola" action="" onsubmit="return clickButton2();">
 <input type="hidden" id="id_piazzola" name="id_piazzola" value=<?php echo $id_piazzola?>>
 <div class="row g-3 align-items-center">
@@ -342,6 +353,7 @@ while($r_p = pg_fetch_assoc($result_p)) {
 </div>
 </form>
 <hr>
+</div>
 </div>
 
 <div class="row">
