@@ -186,11 +186,11 @@ function clickButton2() {
       http.send(params);
       
       $("#dettagli_piazzola").hide();
-      console.log('Nascosto DIV');*/
-      $( "#refreshDataContainer" ).load(window.location.href + " #refreshDataContainer");
+      console.log('Nascosto DIV');
+      $( "#dettagli_piazzola" ).load(window.location.href + " #dettagli_piazzola");
       console.log('Ricaricato DIV');
       $("#dettagli_piazzola").show();
-      console.log('show DIV');*/
+      console.log('show DIV');
       //$("#dettagli_piazzola").load(location.href + " #dettagli_piazzola>*","");
     
       //$('#refreshDataContainer').load('piazzola.php #dettagli_piazzola');
