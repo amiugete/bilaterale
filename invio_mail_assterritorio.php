@@ -18,6 +18,19 @@ require_once('./credenziali_mail.php');
 
 
 
+// cerco la mail dell'utente
+
+$query_mail='select email from util.sys_users su where "name" = $1 ';
+$result_m = pg_prepare($conn, "my_query_mail", $query_mail);
+$result_m = pg_execute($conn, "my_query_mail", array($_SESSION['username']));
+
+$status1= pg_result_status($result1);
+//echo "Status1=".$status1."<br>";
+    
+while($rm = pg_fetch_assoc($result_m)) {
+    $mail_utente = $rm['email'];
+}
+
 $id_piazzola=$_POST['id_piazzola'];
 
 echo $id_piazzola."<br>";
@@ -49,7 +62,7 @@ while($r = pg_fetch_assoc($result)) {
 */
 echo "fino a qua";
 // In questo momento il pezzo sopra non serve.. più semplice indirizzo fisso
-$mails=array('assterritorio@amiu.genova.it','roberto.marzocchi@amiu.genova.it');
+$mails=array('assterritorio@amiu.genova.it', 'roberto.marzocchi@amiu.genova.it',  $mail_utente);
 
 
 while (list ($key, $val) = each ($mails)) {
@@ -63,8 +76,9 @@ $mail->Subject = 'Messaggio inviato dal territorio attraverso l\'applicativo per
 //Read an HTML message body from an external file, convert referenced images to embedded,
 //convert HTML into a basic plain-text alternative body
 $body =  'Piazzola: '.$id_piazzola.'<br><br>'.$testo_mail.'
+    <br> <br> '.$_SESSION['username'].'
 
- <br> <br> '.$titolo_app.'';
+    <br> <br> '.$titolo_app.'';
   
 require('./informativa_privacy_mail.php');
 
