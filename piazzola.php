@@ -36,6 +36,9 @@ if (!$_SESSION['username']){
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="roberto" >
@@ -142,13 +145,20 @@ function clickButton2() {
       console.log(id_piazzola);
 
       var civ=document.getElementById('civ').value;
+      localStorage.setItem("civ", civ);
       console.log(civ);
       
       var rif=document.getElementById('rif').value;
+      localStorage.setItem("rif", rif);
       console.log(rif);
       
       var note=document.getElementById('note').value;
+      localStorage.setItem("note", note);
       console.log(note);
+
+
+      
+
 
       if ($('input[name="privato"').is(':checked')){
         var privato=1;
@@ -157,7 +167,8 @@ function clickButton2() {
       }
       console.log(privato);
   
-
+      console.log('LocalStorage');
+      console.log(localStorage);
 
       var http = new XMLHttpRequest();
       var url = 'update_piazzola.php';
@@ -168,7 +179,7 @@ function clickButton2() {
       params.append('rif', rif);
       params.append('note', note);
       params.append('privato', privato);
-      http.open('POST', url, true);
+      http.open('POST', url, false);  // con il false la richiesta dovrebbe essere sincrona
 
       //Send the proper header information along with the request
       /*http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -178,24 +189,40 @@ function clickButton2() {
               console.log(http.responseText);
           }
       }*/
+      
+      //http.onreadystatechange = checkData;
       http.onload = function () {
         // do something to response
         console.log(this.responseText);
       };
 
-      http.send(params);
-      
-      $("#dettagli_piazzola").hide();
-      console.log('Nascosto DIV');
-      $( "#dettagli_piazzola" ).load(window.location.href + " #dettagli_piazzola");
-      console.log('Ricaricato DIV');
-      $("#dettagli_piazzola").show();
-      console.log('show DIV');
-      //$("#dettagli_piazzola").load(location.href + " #dettagli_piazzola>*","");
     
-      //$('#refreshDataContainer').load('piazzola.php #dettagli_piazzola');
-      window.location.reload(true);
+    
+      http.send(params);
+    
+      //console.log(http.readyState);
+
+      if (http.readyState === XMLHttpRequest.DONE) {
+        console.log('Sono qua');      
+        window.location.reload(true);
+        //return false;
+      } else {
+        console.log(http.readyState);
+        $("#dettagli_piazzola").hide();
+        console.log('Nascosto DIV');
+        $( "#dettagli_piazzola" ).load(window.location.href + " #dettagli_piazzola");
+        console.log('Ricaricato DIV');
+        $("#dettagli_piazzola").show();
+        console.log('show DIV');
+        //return false;
+      }
+      
+
+
+
       return false;
+      
+      
 
   }
 
@@ -271,7 +298,7 @@ if ($id_piazzola){
 $query_piazzola="SELECT v.nome as via, p.numero_civico, p.foto, p.riferimento, p.note,
 p.suolo_privato,
 st_y(st_transform(p2.geoloc,4326)) as lat, 
-st_x(st_transform(p2.geoloc,4326)) as lon
+st_x(st_transform(p2.geoloc,4326)) as lon,  p.modificata_da , p.data_ultima_modifica
 from elem.piazzole p 
 join elem.aste a on a.id_asta = p.id_asta 
 join topo.vie v on v.id_via = a.id_via 
@@ -335,7 +362,9 @@ while($r_p = pg_fetch_assoc($result_p)) {
     <i class="fa-solid fa-arrow-up-right-from-square"></i> Visualizza su SIT
     </a>
     </div>
-
+    <div class="form-group  col-md-12">
+    <label for="note"> Modificato da <?php echo $r_p['modificata_da'];?> il <?php echo $r_p['data_ultima_modifica'];?> </label>
+    </div>
 <?php
 }
 ?>
