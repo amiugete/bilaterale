@@ -28,6 +28,19 @@ if (!$civ){
 //echo $civ."<br>";
 
 
+$cciv=$_POST['cciv'];
+
+if (!$cciv){
+    $cciv=NULL;
+}
+
+$lciv=$_POST['lciv'];
+
+if (!$lciv){
+    $lciv=NULL;
+}
+
+
 $rif=$_POST['rif'];
 //echo $rif."<br>";
 
@@ -53,13 +66,16 @@ $privato=$_POST['privato'];
 
 $query_1="UPDATE elem.piazzole
 SET riferimento=$1, numero_civico=$2, 
-note=$3, suolo_privato =$4, modificata_da=$5 
-WHERE id_piazzola = $6";
+note=$3, suolo_privato =$4, modificata_da=$5,
+lettera_civico=$6, colore_civico=$7
+WHERE id_piazzola = $8";
 
 
 $result4 = pg_prepare($conn, "my_query_update", $query_1);
+echo  pg_last_error($conn);
 //$result4 = pg_execute($conn, "my_query4", array($rif, $testo_civ, $id_asta, $note, $privato, $id_transitabilita, $new_id, $lon, $lat));
-$result4 = pg_execute($conn, "my_query_update", array($rif, $civ, $note, $privato, $_SESSION['username'], $id_piazzola));
+$result4 = pg_execute($conn, "my_query_update", array($rif, $civ, $note, $privato, $_SESSION['username'], $lciv, $cciv, $id_piazzola));
+echo  pg_last_error($conn);
 $status5= pg_result_status($result4);
 //echo "Status1=".$status1."<br>";
 

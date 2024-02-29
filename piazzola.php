@@ -148,6 +148,14 @@ function clickButton2() {
       localStorage.setItem("civ", civ);
       console.log(civ);
       
+      var lciv=document.getElementById('lciv').value;
+      localStorage.setItem("lciv", lciv);
+      console.log(lciv);
+
+      var cciv=document.getElementById('cciv').value;
+      localStorage.setItem("cciv", cciv);
+      console.log(cciv);
+
       var rif=document.getElementById('rif').value;
       localStorage.setItem("rif", rif);
       console.log(rif);
@@ -155,7 +163,6 @@ function clickButton2() {
       var note=document.getElementById('note').value;
       localStorage.setItem("note", note);
       console.log(note);
-
 
       
 
@@ -176,6 +183,8 @@ function clickButton2() {
       var params = new FormData();
       params.append('id_piazzola', id_piazzola);
       params.append('civ', civ);
+      params.append('lciv', lciv);
+      params.append('cciv', cciv);
       params.append('rif', rif);
       params.append('note', note);
       params.append('privato', privato);
@@ -298,7 +307,8 @@ if ($id_piazzola){
 $query_piazzola="SELECT v.nome as via, p.numero_civico, p.foto, p.riferimento, p.note,
 p.suolo_privato,
 st_y(st_transform(p2.geoloc,4326)) as lat, 
-st_x(st_transform(p2.geoloc,4326)) as lon,  p.modificata_da , p.data_ultima_modifica
+st_x(st_transform(p2.geoloc,4326)) as lon,  p.modificata_da , p.data_ultima_modifica,
+ p.lettera_civico, p.colore_civico
 from elem.piazzole p 
 join elem.aste a on a.id_asta = p.id_asta 
 join topo.vie v on v.id_via = a.id_via 
@@ -325,10 +335,18 @@ while($r_p = pg_fetch_assoc($result_p)) {
       <input disabled="" type="text" name="via" id="via" class="form-control" value="<?php echo $r_p['via'];?>">
     </div>
     <div class="form-group col-md-1">
-      <label for="via"> Civico </label>
-      <input type="text" name="civ" id="civ" class="form-control" value="<?php echo $r_p['numero_civico'];?>">
+      <label for="via"> Num civ </label>
+      <input type="number" name="civ" id="civ" class="form-control" value="<?php echo $r_p['numero_civico'];?>">
     </div>
-    <div class="form-group  col-md-6">
+    <div class="form-group col-md-1">
+      <label for="via"> Lettera </label>
+      <input type="text" maxlength="1" name="lciv" id="lciv" class="form-control" value="<?php echo $r_p['lettera_civico'];?>">
+    </div>
+    <div class="form-group col-md-1">
+      <label for="via"> Colore </label>
+      <input type="text" maxlength="1" name="cciv" id="cciv" class="form-control" value="<?php echo $r_p['colore_civico'];?>">
+    </div>
+    <div class="form-group  col-md-4">
       <label for="rif"> Riferimento </label> <font color="red">*</font>
       <input type="text" name="rif" id="rif" class="form-control" value="<?php echo $r_p['riferimento'];?>" required="">
     </div>

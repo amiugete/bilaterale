@@ -62,13 +62,13 @@ if ($check_asta_esistente==0){
 
 
     $query_metri_trasf="select distinct
-        (select max(metri_trasf) from elem.aste_percorso where id_percorso=$1) +
+        (select coalesce(max(metri_trasf),0) from elem.aste_percorso where id_percorso=$1) +
         round(st_distance(
         (
         select g.geoloc from geo.grafostradale g where id =( 
             select id_asta from elem.aste_percorso ap2 where 
             id_percorso=$1
-            and num_seq = (select max(num_seq) from elem.aste_percorso ap3 where id_percorso=$1)
+            and num_seq = (select coalesce(max(num_seq),0) from elem.aste_percorso ap3 where id_percorso=$1)
         )
         ), 
         (select g.geoloc from geo.grafostradale g where id =
@@ -106,7 +106,7 @@ if ($check_asta_esistente==0){
      id_asta, lato_servizio, tipo,
      frequenza, carico_scarico, id_percorso,
      metri_trasf, tempo_trasf, senso_perc, lung_trattamento)
-    VALUES($1, (select max(num_seq)+1 from elem.aste_percorso where id_percorso=$2), 
+    VALUES($1, (select coalesce(max(num_seq)+1,0) from elem.aste_percorso where id_percorso=$2), 
     (select id_asta from elem.piazzole where id_piazzola=$3), 'entrambi', 'servizio',
     (select frequenza from elem.percorsi where id_percorso=$2),0, $2,
      $4, ($4/6.944), -1, 0)";
