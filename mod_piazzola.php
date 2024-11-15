@@ -282,7 +282,7 @@ $query__modifica="UPDATE elem.piazzole
 $result_mod = pg_prepare($conn, "my_query_mod", $query__modifica);
 //$result4 = pg_execute($conn, "my_query4", array($rif, $testo_civ, $id_asta, $note, $privato, $id_transitabilita, $new_id, $lon, $lat));
 $result_mod = pg_execute($conn, "my_query_mod", array($_SESSION['username'], $id_piazzola));
-$status1= pg_result_status($result_mod);
+$status_mod= pg_result_status($result_mod);
 echo "Status_mod=".$status_mod."<br>";
 
 
@@ -292,7 +292,7 @@ echo "Status_mod=".$status_mod."<br>";
 //****************************************************************************
 
 require_once('invio_mail_general.php');
-
+echo 'test<br>';
 if ($_SESSION['username']=='Marzocchi' || $_SESSION['username'] == 'Magioncalda'){
 // In questo momento il pezzo sopra non serve.. più semplice indirizzo fisso
     $mails=array('roberto.marzocchi@amiu.genova.it');

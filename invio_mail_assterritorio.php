@@ -6,16 +6,19 @@ session_start();
 
 
 
+
 if ($_SESSION['test']==1) {
     require_once ('./conn_test.php');
 } else {
     require_once ('./conn.php');
 }
 
-require_once('./credenziali_mail.php');
+
+
+
+//require_once('./credenziali_mail.php');
 
 //echo $_SESSION['user'];
-
 
 
 // cerco la mail dell'utente
@@ -24,13 +27,17 @@ $query_mail='select email from util.sys_users su where "name" = $1 ';
 $result_m = pg_prepare($conn, "my_query_mail", $query_mail);
 $result_m = pg_execute($conn, "my_query_mail", array($_SESSION['username']));
 
-$status1= pg_result_status($result1);
+
+
+
+$status1= pg_result_status($result_m);
 //echo "Status1=".$status1."<br>";
     
 while($rm = pg_fetch_assoc($result_m)) {
     $mail_utente = $rm['email'];
 }
 
+echo $mail_utente."<br>";
 $id_piazzola=$_POST['id_piazzola'];
 
 echo $id_piazzola."<br>";
@@ -41,7 +48,7 @@ $testo_mail=$_POST['testo_mail'];
 echo $testo_mail."<br>";
 
 
-
+//exit();
 //****************************************************************************
 //			Invio mail
 //****************************************************************************
@@ -60,14 +67,19 @@ while($r = pg_fetch_assoc($result)) {
   //sendMessage($r['id_telegram'], $messaggio , $token);
 }
 */
-echo "fino a qua";
+echo "fino a qua<br>";
 // In questo momento il pezzo sopra non serve.. più semplice indirizzo fisso
 $mails=array('assterritorio@amiu.genova.it', 'roberto.marzocchi@amiu.genova.it',  $mail_utente);
 
+echo "fino a qua 1<br>";
 
-while (list ($key, $val) = each ($mails)) {
+/*while (list($key, $val) = each ($mails)) {
   $mail->AddAddress($val);
-}
+}*/
+
+foreach ($mails as $val) {
+    $mail->AddAddress($val);
+    }
 
 echo "fino a qua 2";
 //Set the subject line
