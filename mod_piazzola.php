@@ -301,9 +301,14 @@ if ($_SESSION['username']=='Marzocchi' || $_SESSION['username'] == 'Magioncalda'
 }
 
 
-while (list ($key, $val) = each ($mails)) {
+/*while (list ($key, $val) = each ($mails)) {
   $mail->AddAddress($val);
+}*/
+
+foreach ($mails as $val) {
+    $mail->AddAddress($val);
 }
+
 //Set the subject line
 $mail->Subject = 'Piazzola bilateralizzata attraverso l\'applicativo per il passaggio al bilaterale.';
 //$mail->Subject = 'PHPMailer SMTP without auth test';

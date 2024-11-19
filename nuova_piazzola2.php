@@ -291,10 +291,14 @@ $mails=array('roberto.marzocchi@amiu.genova.it', 'assterritorio@amiu.genova.it',
 
 echo "fino a qua 1 ";
 
-while (list ($key, $val) = each ($mails)) {
+/*while (list ($key, $val) = each ($mails)) {
   $mail->AddAddress($val);
-}
+}*/
 
+
+foreach ($mails as $val) {
+    $mail->AddAddress($val);
+}
 echo "fino a qua 2";
 
 //Set the subject line
