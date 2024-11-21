@@ -877,7 +877,7 @@ title="Non posso trasformare la piazzole perchè c'è un intervento preso in car
   }
   ?>
   </label>
-  <input type="file" class="form-control form-control-sm" name="fileToUpload" id="fileToUpload" required="">
+  <input type="file" class="form-control form-control-sm" name="fileToUpload" id="fileToUpload" accept="image/*"  required="">
   </div>
   <div class="mb-3">
   <input type="submit" value="Carica foto" name="submit" class="btn btn-primary mb-3" >

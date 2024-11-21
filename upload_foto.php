@@ -91,7 +91,12 @@ if(is_uploaded_file($_FILES['fileToUpload']['tmp_name'])) {
         echo $messaggio;
     }
 } else {
-    echo "Sono qua e non va bene <br>";
+    echo "Problema con il file upload: <br>";
+    foreach($_FILES["fileToUpload"] as $key => $value) {
+        echo "<br>".$key." is  ".$value;
+      }
+    echo '<br>[fileToUpload]'.$_FILES["fileToUpload"];
+    echo "<br>['userfile']['tmp_name'] '". $_FILES['userfile']['tmp_name'] . "'.";
     $check=1;
 }
 
